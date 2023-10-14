@@ -8,6 +8,8 @@ import helmet from 'helmet';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const Users = require('./models/User');
 
+import UserRoutes from './routes/UserRoutes';
+
 
 const app = Express();
 
@@ -15,8 +17,11 @@ const app = Express();
 app.use(cors());
 
 app.use(Express.urlencoded({extended: true}));
+app.use(Express.json());
 
 app.use(helmet());
+
+app.use('/user', UserRoutes);
 
 
 conn.sync()
@@ -25,3 +30,4 @@ conn.sync()
 		app.listen(`${process.env.port}`);
 	})
 	.catch((err: void) => console.log(err));
+
