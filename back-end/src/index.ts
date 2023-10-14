@@ -4,9 +4,11 @@ import  Express  from 'express';
 import { conn } from './db/conn';
 import cors from 'cors';
 import helmet from 'helmet';
-import { User } from './models/User';
 
-const user = User;
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const Users = require('./models/User');
+
+
 const app = Express();
 
 
