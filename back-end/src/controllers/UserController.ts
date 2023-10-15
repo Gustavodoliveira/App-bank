@@ -136,4 +136,21 @@ export default class UserController {
 		}
 	}
 
+	static async userDelete(req: Request, res: Response) {
+		const id =req.params.id;
+
+		const token = getToken(req);
+		const user = await getUserByToken(token || '');
+
+		if( user.id != id) return res.status(400).json({message: 'this is users is differents'});
+
+		try {
+			await Users.destroy({where: {id: id}});
+
+			return res.status(200).json({message: 'user delete success'});
+		} catch (error){
+			return res.status(500).json({message: 'error in server'});
+		}
+	}
+
 }
