@@ -11,6 +11,12 @@ export default class UserController {
 
 		const {name, email, cpf, age, address, phone, password, confirmPassword} = req.body;
 
+		let image = '';
+
+		if (req.file) {
+			image = req.file.filename;
+		}
+
 		if (!name) return  res.status(401).json({message: 'Name is required'});
 
 		if (!email) return  res.status(401).json({message: 'email is required'});
@@ -33,9 +39,17 @@ export default class UserController {
 		const passwordHash = await bcrypt.hash(password, salt);
 
 		try {
+
+			const userExists = await Users.findOne({where:{
+				email: email
+			}});
+
+			if(userExists) return res.status(401).json({message: 'User already exist'});
+
 			const user = await Users.create({
 				name: name,
 				email: email,
+				image: image,
 				cpf: cpf,
 				age: age,
 				address: address,

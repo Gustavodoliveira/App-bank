@@ -10,6 +10,9 @@ export const Users = conn.define('users', {
 		type: DataTypes.STRING,
 		allowNull: false
 	},
+	image:{
+		type: DataTypes.STRING,
+	},
 	cpf:{
 		type: DataTypes.STRING,
 		allowNull: false
