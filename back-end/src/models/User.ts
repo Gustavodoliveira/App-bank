@@ -3,18 +3,18 @@ import { conn } from '../db/conn';
 
 export const Users = conn.define('users', {
 	name:{
-		type: DataTypes.STRING,
+		type: DataTypes.STRING(30),
 		allowNull: false
 	},
 	email:{
-		type: DataTypes.STRING,
+		type: DataTypes.STRING(40),
 		allowNull: false
 	},
 	image:{
 		type: DataTypes.STRING,
 	},
 	cpf:{
-		type: DataTypes.STRING,
+		type: DataTypes.STRING(11),
 		allowNull: false
 	},
 	age:{
@@ -26,7 +26,7 @@ export const Users = conn.define('users', {
 		allowNull: false
 	},
 	phone:{
-		type: DataTypes.STRING,
+		type: DataTypes.STRING(10),
 		allowNull: false
 	},
 	password:{
