@@ -1,0 +1,78 @@
+.presentation{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.text-presentation{
+  margin: 2rem 0 0 5rem;
+
+}
+
+.text-presentation > h2 {
+  font-size: 1.6rem;
+  font-weight: 400;
+
+}
+
+.text-presentation > p {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.text-presentation > a > button {
+  border: none;
+  padding: 1rem;
+  font-size: 1rem;
+  margin:  5rem 0;
+  border-radius: 5rem;
+  background-color: var(--Color-secondary);
+  color: var(--Color-primary);
+  cursor: pointer;
+  transition: .5s ease-in-out;
+}
+
+.text-presentation > a > button:hover{
+  background-color: var(--Color-primary);
+  color: var(--Background-Color);
+}
+
+.presentation > div > img {
+  margin: 4rem 0 0 10rem;
+  animation: rotate 5s infinite ease-in-out;
+}
+
+@media (max-width: 700px) {
+  .presentation{
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .text-presentation{
+    max-width: 25rem;
+  }
+
+  .text-presentation > a > button {
+    margin: 2rem 0;
+  }
+
+  .presentation > div > img {
+    margin: 2rem 0 0 5rem;
+  }
+}
+
+@keyframes rotate {
+  0%{
+    transform: rotateY(0);
+  }
+
+  50%{
+    transform: rotateY(180deg);
+  }
+
+  100%{
+    transform: rotateY(360deg);
+  }
+}

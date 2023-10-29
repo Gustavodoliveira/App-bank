@@ -4,13 +4,17 @@
 :root{
   --Color-primary: #D95560;
   --Color-secondary: #363C40;
+  --Background-Color: #F0F0F2;
+  --Color-Tertiary: #8C4242;
+  --Color-Details: #111C26;
 }
 
 body{ 
   font-size: 62.5%;
   padding: 0;
   margin: 0;
-  box-sizing: content-box;
+  box-sizing: border-box;
+  background-color: var(--Background-Color);
   font-family: 'Poppins',
     sans-serif;
   -webkit-font-smoothing: antialiased;
