@@ -22,22 +22,6 @@
   font-weight: 400;
 }
 
-.text-presentation > a > button {
-  border: none;
-  padding: 1rem;
-  font-size: 1rem;
-  margin:  5rem 0;
-  border-radius: 5rem;
-  background-color: var(--Color-secondary);
-  color: var(--Color-primary);
-  cursor: pointer;
-  transition: .5s ease-in-out;
-}
-
-.text-presentation > a > button:hover{
-  background-color: var(--Color-primary);
-  color: var(--Background-Color);
-}
 
 .presentation > div > img {
   margin: 4rem 0 0 10rem;
@@ -74,5 +58,127 @@
 
   100%{
     transform: rotateY(360deg);
+  }
+}
+
+
+.presentation-cards{
+   margin-top: 12rem;
+   margin-bottom: 10rem;
+}
+
+.presentation-cards > h2{
+  font-size: 1.4rem;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.presentation-cards-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: auto 0 0 8rem;
+  gap: 5rem;
+  justify-content: space-between;
+}
+
+.card-container{
+  margin: 2rem 0;
+  padding: 1rem;
+  height: 15rem;
+  border-radius: 2rem;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.39);
+  max-width: 12rem;
+  backface-visibility: hidden;
+  transition: .5s ease-in-out;
+}
+
+.card-container:hover{
+  transform: translateY(-1rem);
+}
+
+.card-title{
+  text-align: center;
+  font-size: 1rem;
+  border-bottom: 1px solid var(--Color-secondary);
+}
+
+.card-content > p {
+  font-size: .8rem;
+}
+
+.card-content > ul > li{
+  text-align: start;
+  font-size: .7rem;
+}
+
+.card-investment{
+  background-color: var(--Color-primary);
+  color: var(--Background-Color);
+}
+
+.card-security{
+  background-color: var(--Color-Details);
+  color: var(--Background-Color);
+}
+
+.card-suporte{
+  background-color: var(--Background-Color-Secondary);
+}
+
+
+.assessment{
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  align-items: center;
+}
+
+.assessment-form-controller{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 7rem ;
+}
+
+.assessment-container > h2 {
+  text-align: center;
+}
+
+.form-check-user{
+  margin-left: 20rem;
+}
+
+.form-check-user > input[type='text']{
+  display: block;
+  padding: .2rem;
+  border: none;
+  border-radius: .5rem;
+  margin-bottom: 2rem;
+}
+
+.form-check-user > input[type='password']{
+  display: block;
+  padding: .2rem;
+  border: none;
+  border-radius: .5rem;
+}
+
+.text-area-controller {
+  display: block;
+  border: none;
+  resize: none;
+  border-radius: .4rem;
+  width: 20rem;
+  margin-top: .5rem;
+
+}
+
+.assessment-form-controller > button {
+  margin: 5rem 0 0 90%;
+}
+@media (max-width: 700px) {
+  .presentation-cards-container{
+    display: grid;
+    grid-template-columns: 1fr;
   }
 }

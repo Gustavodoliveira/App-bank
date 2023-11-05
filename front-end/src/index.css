@@ -7,6 +7,13 @@
   --Background-Color: #F0F0F2;
   --Color-Tertiary: #8C4242;
   --Color-Details: #111C26;
+  --Background-Color-Secondary: #c8c8ca;
+}
+
+
+
+label {
+  font-size: 1rem;
 }
 
 body{ 
@@ -19,4 +26,23 @@ body{
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+button{
+    border: none;
+    width: 10rem;
+    padding: 1rem;
+    font-size: 1rem;
+    margin:  5rem 0;
+    border-radius: 5rem;
+    background-color: var(--Color-secondary);
+    color: var(--Color-primary);
+    cursor: pointer;
+    transition: .5s ease-in-out;
+
+}
+
+button:hover{
+  background-color: var(--Color-primary);
+  color: var(--Background-Color);
 }
