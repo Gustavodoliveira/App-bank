@@ -46,3 +46,12 @@ button:hover{
   background-color: var(--Color-primary);
   color: var(--Background-Color);
 }
+
+.form-control{
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    max-width: 10rem;
+    margin: 0 auto;
+    gap: 1rem;
+}
