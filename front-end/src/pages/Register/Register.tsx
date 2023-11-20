@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '../../helper/api';
 import { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
@@ -22,9 +23,9 @@ export interface User {
 }
 
 const Register = () => {
-    const Authentication = useSelector(
-        (state: RootState) => state.Register.isLoggedin,
-    );
+    const Authentication = useSelector((state: RootState) => state.isLoggedin);
+
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [preview, setPreview] = useState<File>();
@@ -59,7 +60,7 @@ const Register = () => {
                 const { user, token } = resp.data;
                 localStorage.setItem('token', JSON.stringify(token));
                 localStorage.setItem('user', JSON.stringify(user));
-                localStorage.setItem('logged', JSON.stringify(Authentication));
+                navigate('/appHome');
             })
             .catch((err: AxiosError) => {
                 const message: any = err.response?.data;
@@ -88,21 +89,23 @@ const Register = () => {
             )}
 
             <form action="" className="form-control" onSubmit={onSubmit}>
-                <label htmlFor="image">Image: </label>
-                <input
-                    type="file"
-                    name="image"
-                    id=""
-                    onChange={(e) => {
-                        if (!e.target.files) return;
-                        setUser({
-                            ...user,
-                            image: e.target.files[0],
-                        });
-                        const img = e.target.files[0];
-                        setPreview(img);
-                    }}
-                />
+                <div>
+                    <label htmlFor="image">Image: </label>
+                    <input
+                        type="file"
+                        name="image"
+                        id=""
+                        onChange={(e) => {
+                            if (!e.target.files) return;
+                            setUser({
+                                ...user,
+                                image: e.target.files[0],
+                            });
+                            const img = e.target.files[0];
+                            setPreview(img);
+                        }}
+                    />
+                </div>
                 <div>
                     <label htmlFor="name">Name: </label>
                     <input

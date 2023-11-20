@@ -11,20 +11,26 @@ import { Provider } from 'react-redux';
 
 import store from '../store';
 import AppHome from '../pages/App/AppHome';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistStore } from 'redux-persist';
 
 const MyRoutes = () => {
+    const persist = persistStore(store);
+
     return (
         <Provider store={store}>
-            <BrowserRouter>
-                <Header />
-                <ToastContainer autoClose={3000} />
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/register" element={<AppHome />} />
-                </Routes>
-                <Footer />
-            </BrowserRouter>
+            <PersistGate loading={null} persistor={persist}>
+                <BrowserRouter>
+                    <Header />
+                    <ToastContainer autoClose={3000} />
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/register" element={<Register />} />
+                        <Route path="/appHome" element={<AppHome />} />
+                    </Routes>
+                    <Footer />
+                </BrowserRouter>
+            </PersistGate>
         </Provider>
     );
 };

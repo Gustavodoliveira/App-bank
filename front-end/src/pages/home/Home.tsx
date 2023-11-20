@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './home.css';
 import logo from '../../assets/home  21 10.svg';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 const Home = () => {
+    const navigate = useNavigate();
+    const Authentication = useSelector((state: RootState) => state.isLoggedin);
+
+    useEffect(() => {
+        if (Authentication) {
+            navigate('/appHome');
+        }
+    });
+
     return (
         <>
             <section className="presentation">

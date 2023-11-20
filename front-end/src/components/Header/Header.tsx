@@ -8,26 +8,26 @@ import { User } from '../../pages/Register/Register';
 
 const Header = (): JSX.Element => {
     const [Active, isActive] = useState(false);
-    const user: string = localStorage.getItem('user') || '';
+    const user: string = localStorage.getItem('user') || '{}';
 
     const User: User = JSON.parse(user);
-
     const logged = localStorage.getItem('logged');
-    let Authentication = useSelector(
-        (state: RootState) => state.Register.isLoggedin,
-    );
-    if (logged) Authentication = true;
 
-    console.log(User.image);
+    const Authentication = useSelector((state: RootState) => state.isLoggedin);
+    console.log(Authentication);
 
     return (
         <header>
-            <h1>App-Bank</h1>
-            <img
-                src={`http://localhost:5000/public/${User.image}`}
-                alt="user image"
-                className="image-perfil"
-            />
+            <div>
+                <h1>App-Bank</h1>
+                {User.image && (
+                    <img
+                        src={`http://localhost:5000/public/${User.image}`}
+                        alt="user image"
+                        className="image-perfil"
+                    />
+                )}
+            </div>
             <nav>
                 <AiOutlineMenu
                     className="menu"

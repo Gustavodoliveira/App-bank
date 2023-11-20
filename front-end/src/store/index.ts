@@ -1,10 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit';
+import storage from 'redux-persist/lib/storage';
 import userReducer from './modules/auth/AuthReducer';
+import { persistReducer } from 'redux-persist';
+
+const persistConfig = {
+    key: 'root',
+    storage
+};
+
+const persistedReducer = persistReducer(persistConfig, userReducer);
 
 const store = configureStore({
-    reducer: {
-        Register: userReducer
-    }
+    reducer: persistedReducer,
+    middleware: []
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

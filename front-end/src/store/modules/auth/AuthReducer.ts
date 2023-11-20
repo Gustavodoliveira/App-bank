@@ -6,7 +6,7 @@ export interface AuthUser{
 }
 
 export const initialState: AuthUser = {
-    isLoggedin: false,
+    isLoggedin: false || true,
 };
 
 export const userRegister = createSlice({
@@ -14,16 +14,9 @@ export const userRegister = createSlice({
     initialState,
     reducers: {
         login: (state) => {
-            const newState = {...state};
-            const token = localStorage.getItem('token');
-            console.log(token);
-            
-            
-            if(token === null) return;
-            if(token) {
-                newState.isLoggedin = true;
-            }
+            const newState = {...state};   
             newState.isLoggedin = true;
+            return newState;
         }
     }
 });
