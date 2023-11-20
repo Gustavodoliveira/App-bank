@@ -10,7 +10,7 @@ const getUserByToken = async (token: string ) => {
 
 
 	try {
-		const user = await Users.findOne({where: {id: id}});
+		const user= await Users.findOne({where: {id: id}});
 		return user;
 	} catch (error) {
 		return'user not exits';

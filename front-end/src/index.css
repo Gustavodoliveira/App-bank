@@ -12,8 +12,15 @@
 
 
 
+.image-perfil {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    text-align: center;
+}
+
 label {
-  font-size: 1rem;
+  font-size: .8rem;
 }
 
 body{ 
@@ -54,4 +61,11 @@ button:hover{
     max-width: 10rem;
     margin: 0 auto;
     gap: 1rem;
+}
+
+input {
+    margin-bottom: .4rem;
+    padding: .3rem;
+    border-radius: .3rem;
+    border: 1px solid black;
 }

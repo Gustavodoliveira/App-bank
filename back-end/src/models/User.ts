@@ -1,6 +1,8 @@
 import { DataTypes } from 'sequelize';
 import { conn } from '../db/conn';
 
+
+
 export const Users = conn.define('users', {
 	name:{
 		type: DataTypes.STRING(30),
@@ -14,11 +16,11 @@ export const Users = conn.define('users', {
 		type: DataTypes.STRING,
 	},
 	cpf:{
-		type: DataTypes.STRING(11),
+		type: DataTypes.STRING(20),
 		allowNull: false
 	},
 	age:{
-		type: DataTypes.INTEGER,
+		type: DataTypes.STRING,
 		allowNull: false
 	},
 	address:{
@@ -26,7 +28,7 @@ export const Users = conn.define('users', {
 		allowNull: false
 	},
 	phone:{
-		type: DataTypes.STRING(10),
+		type: DataTypes.STRING(16),
 		allowNull: false
 	},
 	password:{

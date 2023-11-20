@@ -8,6 +8,7 @@ import bcrypt  from 'bcrypt';
 import createUserToken from '../helpers/create-user-token';
 import getUserByToken from '../helpers/get-user-by-token';
 import getToken from '../helpers/get-token';
+import { Model, ModelAttributes } from 'sequelize';
 
 
 
@@ -23,7 +24,7 @@ export default class UserController {
 		const { id }= req.params;
 
 		const token = getToken(req);
-		const user = await getUserByToken(token || '');
+		const user: ModelAttributes<Model>= await getUserByToken(token || '');
 
 		if( user.id != id) return res.status(400).json({message: 'this is users is differents'});
 
@@ -88,6 +89,8 @@ export default class UserController {
 
 			await createUserToken(user, req, res);
 		} catch (error) {
+			console.log(error);
+
 			return res.status(500).json({message: 'Error in server'});
 		}
 

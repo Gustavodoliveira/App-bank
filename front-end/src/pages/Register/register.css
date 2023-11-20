@@ -3,3 +3,8 @@ h2{
     margin: 4rem 0;
     font-size: 1.2rem ;
 }
+
+.image-container {
+    display: flex;
+    justify-content: center;
+}

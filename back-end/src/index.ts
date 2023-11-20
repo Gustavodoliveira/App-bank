@@ -9,9 +9,11 @@ import helmet from 'helmet';
 const Users = require('./models/User');
 
 import UserRoutes from './routes/UserRoutes';
+import  path from 'path';
 
 
 const app = Express();
+app.use('/public', Express.static(path.resolve(__dirname, './public')));
 
 
 app.use(cors());
