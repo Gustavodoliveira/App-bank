@@ -15,11 +15,27 @@ export const userRegister = createSlice({
     reducers: {
         login: (state) => {
             const newState = {...state};   
+            const token = localStorage.getItem('token');
+            
+            if(token) {
+                newState.isLoggedin = true;
+                return newState;
+            }
+
             newState.isLoggedin = true;
+            return newState;
+        },
+
+        logout: (state) => {
+            const newState = {...state};
+            newState.isLoggedin = false;
+            localStorage.removeItem('token');
+            localStorage.removeItem('logged');
+            localStorage.removeItem('user');
             return newState;
         }
     }
 });
 
-export const { login } = userRegister.actions;
+export const { login, logout } = userRegister.actions;
 export default userRegister.reducer;

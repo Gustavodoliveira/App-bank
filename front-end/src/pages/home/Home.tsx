@@ -13,6 +13,8 @@ const Home = () => {
     useEffect(() => {
         if (Authentication) {
             navigate('/appHome');
+        } else {
+            navigate('/');
         }
     });
 

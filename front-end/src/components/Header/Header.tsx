@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { AiOutlineMenu } from 'react-icons/ai';
+import { Link, useNavigate } from 'react-router-dom';
 import './header.css';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { User } from '../../pages/Register/Register';
 
+import { AiOutlineMenu } from 'react-icons/ai';
+import { FaSignOutAlt } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../store/modules/auth/AuthReducer';
+
 const Header = (): JSX.Element => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [Active, isActive] = useState(false);
     const user: string = localStorage.getItem('user') || '{}';
 
@@ -14,7 +20,11 @@ const Header = (): JSX.Element => {
     const logged = localStorage.getItem('logged');
 
     const Authentication = useSelector((state: RootState) => state.isLoggedin);
-    console.log(Authentication);
+
+    function userLogout() {
+        dispatch(logout());
+        navigate('/');
+    }
 
     return (
         <header>
@@ -34,15 +44,29 @@ const Header = (): JSX.Element => {
                     onClick={() => (Active ? isActive(false) : isActive(true))}
                 />
                 <ul className={Active ? 'active' : ''}>
-                    <Link to="/Register">
-                        <li>Register</li>
-                    </Link>
-                    <Link to="/Login">
-                        <li>Login</li>
-                    </Link>
-                    <Link to="/About">
-                        <li>About</li>
-                    </Link>
+                    {Authentication ? (
+                        <>
+                            <FaSignOutAlt
+                                className="Icon Icon-out"
+                                onClick={userLogout}
+                            />
+                            <Link to="/About">
+                                <li>About</li>
+                            </Link>
+                        </>
+                    ) : (
+                        <>
+                            <Link to="/Register">
+                                <li>Register</li>
+                            </Link>
+                            <Link to="/login">
+                                <li>Login</li>
+                            </Link>
+                            <Link to="/About">
+                                <li>About</li>
+                            </Link>
+                        </>
+                    )}
                 </ul>
             </nav>
         </header>
