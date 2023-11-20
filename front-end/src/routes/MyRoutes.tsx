@@ -13,6 +13,7 @@ import store from '../store';
 import AppHome from '../pages/App/AppHome';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
+import Login from '../pages/login/Login';
 
 const MyRoutes = () => {
     const persist = persistStore(store);
@@ -27,6 +28,7 @@ const MyRoutes = () => {
                         <Route path="/" element={<Home />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/appHome" element={<AppHome />} />
+                        <Route path="/login" element={<Login />} />
                     </Routes>
                     <Footer />
                 </BrowserRouter>
