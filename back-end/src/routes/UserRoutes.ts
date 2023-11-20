@@ -13,7 +13,8 @@ const imageUpload = multer(imageStorage);
 router.get('/getUser/:id', checkUserToken, UserController.getUserById);
 router.get('/showUsers', checkUserToken, UserController.showUsers);
 router.post('/register', imageUpload.single('image'), UserController.registerUser);
-router.patch('/updateUser/:id', checkUserToken, imageUpload.single('image'), UserController.userLogin);
+router.post('/login', UserController.userLogin);
+router.patch('/updateUser/:id', checkUserToken, imageUpload.single('image'), UserController.userUpdate);
 router.delete('/deleteUser/:id', checkUserToken, UserController.userDelete);
 
 export default router;

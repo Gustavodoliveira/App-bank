@@ -96,7 +96,23 @@ export default class UserController {
 
 	}
 
-	static async userLogin(req: Request, res: Response) {
+	static async userLogin(req: Request, res:Response) {
+		const {email, password} = req.body;
+		const token = getToken(req);
+		const user = await getUserByToken(token || '');
+
+		if(!email) res.status(401).json({message: 'the email is required'});
+		if(!password) res.status(401).json({message: 'the password is required'});
+
+		const checkPassword =  await bcrypt.compare(password, user.password);
+
+		if(!checkPassword)res.status(401).json({message: 'Your password is invalid'});
+
+		await createUserToken(user, req, res);
+		return res.status(200).json({message: 'Login success'});
+	}
+
+	static async userUpdate(req: Request, res: Response) {
 		const { id } = req.params;
 
 		const token = getToken(req);

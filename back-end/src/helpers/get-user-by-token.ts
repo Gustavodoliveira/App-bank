@@ -3,6 +3,9 @@ import jwt from 'jsonwebtoken';
 import { Users } from '../models/User';
 
 
+
+
+
 const getUserByToken = async (token: string ) => {
 
 	const decoded = jwt.verify(token, `${process.env.jwtSecret}` );
@@ -10,7 +13,7 @@ const getUserByToken = async (token: string ) => {
 
 
 	try {
-		const user= await Users.findOne({where: {id: id}});
+		const user = await Users.findOne({where: {id: id}}) ;
 		return user;
 	} catch (error) {
 		return'user not exits';
