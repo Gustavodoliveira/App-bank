@@ -9,6 +9,11 @@ header{
   
 }
 
+header > div {
+    display: flex;
+    gap: 2rem;
+}
+
 nav {
   display: flex;
   gap: 2rem;

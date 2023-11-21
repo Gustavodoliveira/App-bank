@@ -16,7 +16,7 @@ const Home = () => {
         } else {
             navigate('/');
         }
-    });
+    }, []);
 
     return (
         <>
