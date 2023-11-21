@@ -4,9 +4,15 @@ import  Express  from 'express';
 import { conn } from './db/conn';
 import cors from 'cors';
 import helmet from 'helmet';
+import { balanceModel  }from './models/Balance';
 
+
+
+const Balance = balanceModel;
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const Users = require('./models/User');
+
+
 
 import UserRoutes from './routes/UserRoutes';
 import  path from 'path';

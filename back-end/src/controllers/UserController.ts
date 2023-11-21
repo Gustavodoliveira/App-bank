@@ -9,6 +9,7 @@ import createUserToken from '../helpers/create-user-token';
 import getUserByToken from '../helpers/get-user-by-token';
 import getToken from '../helpers/get-token';
 import { Model, ModelAttributes } from 'sequelize';
+import { randomUUID } from 'crypto';
 
 
 
@@ -24,7 +25,7 @@ export default class UserController {
 		const { id }= req.params;
 
 		const token = getToken(req);
-		const user: ModelAttributes<Model>= await getUserByToken(token || '');
+		const user= await getUserByToken(token || '');
 
 		if( user.id != id) return res.status(400).json({message: 'this is users is differents'});
 
@@ -77,6 +78,7 @@ export default class UserController {
 			if(userExists) return res.status(401).json({message: 'User already exist'});
 
 			const user = await Users.create({
+				id: randomUUID(),
 				name: name,
 				email: email,
 				image: image,

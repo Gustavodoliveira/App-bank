@@ -2,8 +2,9 @@ import 'dotenv/config';
 import { Request, Response } from 'express';
 import  Jwt  from 'jsonwebtoken';
 import { Model } from 'sequelize';
+import { userModel } from 'src/models/User';
 
-const createUserToken = async (user: Model, req: Request, res: Response) => {
+const createUserToken = async (user: userModel, req: Request, res: Response) => {
 
 	const token = Jwt.sign({
 		user: user

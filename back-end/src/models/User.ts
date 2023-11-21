@@ -1,9 +1,18 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 import { conn } from '../db/conn';
 
+export interface userModel extends Model<InferAttributes<userModel>, InferCreationAttributes<userModel>> {
+    name: string,
+    email: string,
+    image: string,
+    cpf: string,
+    age:string,
+    address: string,
+    phone: string,
+    password: string
+}
 
-
-export const Users = conn.define('users', {
+export const Users = conn.define<userModel>('users', {
 	name:{
 		type: DataTypes.STRING(30),
 		allowNull: false
