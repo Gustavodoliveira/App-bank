@@ -64,6 +64,9 @@ export default class balanceController {
 
 		const user = await getUserByToken(token);
 
+		if(!user) return res.status(401).json({message: 'user not exists'});
+
+
 		if(!accountName) return res.status(401).json({ message: 'account name is required to do payment!'});
 
 		if(!value) return res.status(401).json({ message: 'the value is required to do payment!'});

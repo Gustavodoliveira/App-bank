@@ -128,6 +128,9 @@ export default class UserController {
 		const token = getToken(req);
 		const user = await getUserByToken(token || '');
 
+		if(!user) return res.status(401).json({message: 'user not exists'});
+
+
 		if( user.id != id) return res.status(400).json({message: 'this is users is differents'});
 
 		const { email, phone, address, password, confirmPassword} = req.body;
@@ -170,6 +173,10 @@ export default class UserController {
 
 		const token = getToken(req);
 		const user = await getUserByToken(token || '');
+
+		if(!user) return res.status(401).json({message: 'user not exists'});
+
+
 
 		if( user.id != id) return res.status(400).json({message: 'this is users is differents'});
 

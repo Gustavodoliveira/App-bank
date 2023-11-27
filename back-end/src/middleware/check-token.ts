@@ -11,7 +11,7 @@ const checkUserToken = async ( req:Request, res: Response, next:NextFunction ) =
 
 	const token = authheader && authheader.split(' ')[1];
 
-	if(!token) return res.status(401).json({message: 'acess denied'});
+	if(!token) return res.status(401).json({message: 'access denied'});
 
 	try {
 		const verify = jwt.verify(token, `${process.env.jwtSecret}`);
