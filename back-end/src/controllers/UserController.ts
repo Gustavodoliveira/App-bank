@@ -2,14 +2,13 @@
 import { Users } from '../models/User';
 import {Response, Request} from 'express';
 import bcrypt  from 'bcrypt';
+import {v4} from 'uuid';
 
 
 
 import createUserToken from '../helpers/create-user-token';
 import getUserByToken from '../helpers/get-user-by-token';
 import getToken from '../helpers/get-token';
-import { Model, ModelAttributes } from 'sequelize';
-import { randomUUID } from 'crypto';
 
 
 
@@ -26,6 +25,8 @@ export default class UserController {
 
 		const token = getToken(req);
 		const user= await getUserByToken(token || '');
+
+		if(!user) return res.status(401).json({message: 'user not exists'});
 
 		if( user.id != id) return res.status(400).json({message: 'this is users is differents'});
 
@@ -70,6 +71,7 @@ export default class UserController {
 		const passwordHash = await bcrypt.hash(password, salt);
 
 		try {
+			const id = v4();
 
 			const userExists = await Users.findOne({where:{
 				email: email
@@ -78,7 +80,7 @@ export default class UserController {
 			if(userExists) return res.status(401).json({message: 'User already exist'});
 
 			const user = await Users.create({
-				id: randomUUID(),
+				id: id,
 				name: name,
 				email: email,
 				image: image,
@@ -110,6 +112,9 @@ export default class UserController {
 		const user = await Users.findOne({where:{
 			email: email
 		}});
+
+		if(!user) return res.status(401).json({message: 'user not exist'});
+
 		const checkPassword =  await bcrypt.compare(password, user.password);
 
 		if(!checkPassword) return res.status(401).json({message: 'Your password is invalid'});

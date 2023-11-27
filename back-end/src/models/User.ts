@@ -2,6 +2,7 @@ import { DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequ
 import { conn } from '../db/conn';
 
 export interface userModel extends Model<InferAttributes<userModel>, InferCreationAttributes<userModel>> {
+    id: string,
     name: string,
     email: string,
     image: string,
@@ -13,6 +14,11 @@ export interface userModel extends Model<InferAttributes<userModel>, InferCreati
 }
 
 export const Users = conn.define<userModel>('users', {
+	id: {
+		type: DataTypes.STRING,
+		primaryKey: true,
+		unique: true
+	},
 	name:{
 		type: DataTypes.STRING(30),
 		allowNull: false

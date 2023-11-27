@@ -1,21 +1,24 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import 'dotenv/config';
 import  Express  from 'express';
 import { conn } from './db/conn';
 import cors from 'cors';
 import helmet from 'helmet';
+
+// = > MODELS
 import { balanceModel  }from './models/Balance';
+import { Users } from './models/User';
 
 
 
 const Balance = balanceModel;
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const Users = require('./models/User');
+const user = Users;
 
 
 
 import UserRoutes from './routes/UserRoutes';
 import  path from 'path';
+import { balanceController } from './controllers/BalanceController';
+import routerBalance from './routes/BalanceRoutes';
 
 
 const app = Express();
@@ -30,6 +33,7 @@ app.use(Express.json());
 app.use(helmet());
 
 app.use('/user', UserRoutes);
+app.use('/balance', routerBalance);
 
 
 conn.sync()

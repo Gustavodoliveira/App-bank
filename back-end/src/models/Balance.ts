@@ -5,7 +5,7 @@ import { Users } from './User';
 
 interface balanceModel extends Model<InferAttributes<balanceModel>, InferCreationAttributes<balanceModel>> {
     balance: number,
-    userId: number
+    userId: string
 }
 
 export const balanceModel = conn.define<balanceModel>('balance', {
@@ -14,7 +14,7 @@ export const balanceModel = conn.define<balanceModel>('balance', {
 		allowNull: false
 	},
 	userId: {
-		type: DataTypes.INTEGER,
+		type: DataTypes.STRING,
 		unique: true,
 		allowNull: false,
 		references: {
@@ -25,4 +25,4 @@ export const balanceModel = conn.define<balanceModel>('balance', {
 
 });
 
-//balanceModel.belongsTo(Users);
+balanceModel.belongsTo(Users);

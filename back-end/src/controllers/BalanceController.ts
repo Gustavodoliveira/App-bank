@@ -1,22 +1,32 @@
 
 import { Request, Response } from 'express';
 import { balanceModel } from '../models/Balance';
-import { Users } from 'src/models/User';
+import { Users } from '../models/User';
+import getUserByToken from '../helpers/get-user-by-token';
+import getToken from '../helpers/get-token';
 
-export class balanceController {
-	static async getValueBalance (req: Request, res: Response) {
-		const { balanceValue, userId} = req.body;
+export default class balanceController {
+	static async getDepositValueBalance (req: Request, res: Response) {
+		const { balanceValue, userId } = req.body;
 
 		const value = Number.parseInt(balanceValue);
-		const id = Number.parseInt(userId);
+		const id: string = userId ;
 
+		console.log(id);
+
+
+
+		const user = await Users.findOne({where: {id: id }});
+
+		if(!user) return res.status(401).json({message: 'you are not user'});
 		if(!balanceValue) return res.status(401).json({message: 'we need a deposit amount'});
+
+
 
 		try {
 			const Balance = await balanceModel.create({
 				balance: value,
-				userId : id
-
+				userId : id,
 			});
 
 			return res.status(200).json({message: 'your deposit was made successfully'});
@@ -34,15 +44,44 @@ export class balanceController {
 
 		const idUser = await balanceModel.findOne({where: {userId: userId}}) ;
 
-		if(!userId) return res.status(204).json({valueBalance});
+		if(!idUser) return res.status(204).json({valueBalance});
 
-		if (userId) {
-			valueBalance = idUser.balance;
-		}
+
+		valueBalance = idUser.balance;
 
 
 
 		return res.status(200).json({valueBalance});
+
+
+	}
+
+	static async payment(req: Request, res: Response) {
+		const { accountName, value} = req.body;
+		const token = getToken(req);
+
+		if(!token) return res.status(401).json({message: 'token invalid'});
+
+		const user = await getUserByToken(token);
+
+		if(!accountName) return res.status(401).json({ message: 'account name is required to do payment!'});
+
+		if(!value) return res.status(401).json({ message: 'the value is required to do payment!'});
+
+		const balance = await balanceModel.findOne({where: {userId: user.id}});
+
+		if(!balance) return res.status(401).json({message: 'you need to do a deposit '});
+
+		const newBalance = balance.balance - value;
+
+		try {
+			const balanceNew = await balance.update({
+				balance: newBalance,
+			});
+		} catch (error) {
+			console.log(error);
+
+		}
 
 
 	}
