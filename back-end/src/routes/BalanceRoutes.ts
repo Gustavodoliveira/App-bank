@@ -5,6 +5,7 @@ const routerBalance = Router();
 
 routerBalance.get('/getBalance', checkUserToken, balanceControllerer.getBalance);
 routerBalance.post('/deposit',checkUserToken, balanceControllerer.getDepositValueBalance);
+routerBalance.post('/payment', checkUserToken, balanceControllerer.payment);
 
 
 export default routerBalance;

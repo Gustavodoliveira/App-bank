@@ -18,8 +18,6 @@ export default class balanceController {
 		const user = await Users.findOne({where: {id: id }});
 		const balanceUserId = await balanceModel.findOne({ where: { userId: id}});
 
-		if(balanceUserId) return res.status(401).json({ message: 'user already exists in another account'});
-
 		if(!user) return res.status(401).json({message: 'you are not user'});
 
 
@@ -61,12 +59,9 @@ export default class balanceController {
 	}
 
 	static async payment(req: Request, res: Response) {
-		const { accountName, value} = req.body;
-		const token = getToken(req);
+		const { accountName, value, id} = req.body;
 
-		if(!token) return res.status(401).json({message: 'token invalid'});
-
-		const user = await getUserByToken(token);
+		const user = await Users.findOne({ where: { id: id}});
 
 		if(!user) return res.status(401).json({message: 'user not exists'});
 
@@ -85,6 +80,8 @@ export default class balanceController {
 			const balanceNew = await balance.update({
 				balance: newBalance,
 			});
+
+			return res.status(200).json({ message: balanceNew});
 		} catch (error) {
 			console.log(error);
 
