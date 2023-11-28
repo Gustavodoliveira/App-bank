@@ -12,13 +12,17 @@ export default class balanceController {
 		const value = Number.parseInt(balanceValue);
 		const id: string = userId ;
 
-		console.log(id);
 
 
 
 		const user = await Users.findOne({where: {id: id }});
+		const balanceUserId = await balanceModel.findOne({ where: { userId: id}});
+
+		if(balanceUserId) return res.status(401).json({ message: 'user already exists in another account'});
 
 		if(!user) return res.status(401).json({message: 'you are not user'});
+
+
 		if(!balanceValue) return res.status(401).json({message: 'we need a deposit amount'});
 
 
