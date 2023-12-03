@@ -43,6 +43,7 @@ body{
 }
 
 button{
+    text-align: center;
     border: none;
     width: 10rem;
     padding: 1rem;
