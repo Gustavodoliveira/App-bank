@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './header.css';
-import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { User } from '../../pages/Register/Register';
 
 import { AiOutlineMenu } from 'react-icons/ai';
 import { FaSignOutAlt } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../store/modules/auth/AuthReducer';
 
 const Header = (): JSX.Element => {
@@ -30,11 +29,11 @@ const Header = (): JSX.Element => {
         <header>
             <div>
                 <h1>App-Bank</h1>
-                {User.image && (
+                {User.image && !Active && (
                     <img
                         src={`http://localhost:5000/public/${User.image}`}
                         alt="user image"
-                        className="image-perfil"
+                        className="image-header"
                     />
                 )}
             </div>
@@ -46,8 +45,19 @@ const Header = (): JSX.Element => {
                 <ul className={Active ? 'active' : ''}>
                     {Authentication ? (
                         <>
+                            {Active && (
+                                <>
+                                    <img
+                                        src={`http://localhost:5000/public/${User.image}`}
+                                        alt={`${User.name}`}
+                                        className="image-header centralize"
+                                    />
+                                    <span>{User.name}</span>
+                                </>
+                            )}
+
                             <FaSignOutAlt
-                                className="Icon Icon-out"
+                                className="Icon centralize"
                                 onClick={userLogout}
                             />
                             <Link to="/About">
