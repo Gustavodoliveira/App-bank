@@ -2,9 +2,6 @@
 
 import styled from "styled-components";
 
-
-import { theme } from '../../styles/theme';
-
 export const Container = styled.header`
   display: flex;
   align-items: center;
@@ -55,7 +52,7 @@ export const NavContainer = styled.nav`
         width: 100%;
     }
 }
-  }
+
   @media (max-width:700px) {
       .menu{
         display: block;
@@ -92,4 +89,4 @@ export const NavContainer = styled.nav`
     z-index: 1;
   }
 }
-`;
+`

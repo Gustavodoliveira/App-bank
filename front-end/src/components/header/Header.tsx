@@ -26,7 +26,7 @@ export const Header = () => {
           </li>
 
           <li className="after-border-bottom">
-            <Link href="/About">About</Link>
+            <Link href="/about">About</Link>
           </li>
         </ul>
       </NavContainer>
