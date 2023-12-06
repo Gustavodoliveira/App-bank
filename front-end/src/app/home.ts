@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.main`
+export const ContainerSectionText = styled.main`
   display: grid;
   grid-template-columns: 1.5fr 1fr;
   gap: 10rem;
@@ -61,4 +61,13 @@ export const ContainerDivText = styled.div`
   margin: 2rem 0 0 5rem;
   display: grid;
   justify-content: flex-start;
+`
+
+export const ContainerSectionCard = styled.section`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-left: 5rem;
+  gap: 1.6rem;
+
+  
 `

@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 import { GlobalStyle } from '@/styles/GlobalStyle';
 import Providers from './_providers';
 import { Header } from '@/components/header/Header';
 
-const inter = Inter({ subsets: ['latin'] });
+const poppins = Poppins({ subsets: ['latin'], weight: ['200', '300'] });
 
 export const metadata: Metadata = {
   title: 'App-bank',
@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br">
-      <body className={inter.className}>
+      <body className={poppins.className}>
         <Providers>
           <Header />
           <GlobalStyle />
