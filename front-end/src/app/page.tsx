@@ -1,6 +1,5 @@
 'use client';
 
-import { Header } from '@/components/header/Header';
 import {
   ContainerDivText,
   ContainerSectionCard,
@@ -9,11 +8,9 @@ import {
 import Link from 'next/link';
 import Image from 'next/image';
 import logo from '../assets/cifrao-lado-esquerdo-com-fundo-branco-removebg-preview.png';
-import Button from '@/components/button/Button';
-import { MouseEvent } from 'react';
 import ButtonComponent from '@/components/button/Button';
-import { ContainerCard } from '@/components/card/card';
 import { Card } from '@/components/card/Card';
+import { AiFillEnvironment } from 'react-icons/ai';
 
 export default function Home() {
   return (
@@ -53,6 +50,7 @@ export default function Home() {
             improvementA: 'Your money yielding 100% ',
             improvementB: 'Transaction alerts',
           }}
+          Icon={AiFillEnvironment}
         />
         <Card
           title="Investments"
