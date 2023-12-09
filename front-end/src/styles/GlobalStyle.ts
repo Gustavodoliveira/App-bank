@@ -22,4 +22,9 @@ a{
   font-size: 1.6rem;
 }
   
+.centralize{
+  display: flex;
+  justify-content: center;
+}
+
 `;

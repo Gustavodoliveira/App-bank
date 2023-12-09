@@ -1,13 +1,13 @@
 import React from 'react';
-import { Container } from './button';
+import { Btn } from './button';
 
 export interface ButtonProps {
-  handleClick: React.MouseEventHandler<HTMLButtonElement>;
+  handleClick?: React.MouseEventHandler<HTMLButtonElement>;
   text: string;
 }
 
 const ButtonComponent = ({ handleClick, text }: ButtonProps) => {
-  return <Container onClick={handleClick}>{text}</Container>;
+  return <Btn onClick={handleClick}>{text}</Btn>;
 };
 
 export default ButtonComponent;

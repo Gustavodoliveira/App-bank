@@ -4,7 +4,10 @@ import { GlobalStyle } from '@/styles/GlobalStyle';
 import Providers from './_providers';
 import { Header } from '@/components/header/Header';
 
-const poppins = Poppins({ subsets: ['latin'], weight: ['200', '300'] });
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['200', '300', '400', '500', '600'],
+});
 
 export const metadata: Metadata = {
   title: 'App-bank',

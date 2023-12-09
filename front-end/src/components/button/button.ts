@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { theme } from '../../styles/theme';
 
-export const Container = styled.button`
+export const Btn = styled.button`
     text-align: center;
     border: none;
     width: 10rem;
