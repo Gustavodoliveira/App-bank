@@ -1,5 +1,5 @@
 import React, { ElementType, ReactNode } from 'react';
-import { ContainerCard } from './card';
+import { ContainerCard, ContainerContent, ContainerTitle } from './card';
 import { IconType } from 'react-icons';
 
 interface IList {
@@ -18,13 +18,13 @@ interface ICard {
 export const Card = ({ title, content, list, Icon }: ICard): ReactNode => {
   return (
     <ContainerCard className={title}>
-      <>
-        <h3>
-          {Icon && <Icon />}
+      <ContainerTitle>
+        <span>{Icon && <Icon />}</span>
+        <h3>{title}</h3>
+      </ContainerTitle>
+      <ContainerContent>
+        <h4>{content}</h4>
 
-          {title}
-        </h3>
-        <p>{content}</p>
         <ul>
           {list.improvementA && list.improvementB && (
             <>
@@ -38,7 +38,7 @@ export const Card = ({ title, content, list, Icon }: ICard): ReactNode => {
             </>
           )}
         </ul>
-      </>
+      </ContainerContent>
     </ContainerCard>
   );
 };

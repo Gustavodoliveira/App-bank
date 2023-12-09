@@ -10,7 +10,11 @@ import Image from 'next/image';
 import logo from '../assets/cifrao-lado-esquerdo-com-fundo-branco-removebg-preview.png';
 import ButtonComponent from '@/components/button/Button';
 import { Card } from '@/components/card/Card';
-import { AiFillEnvironment } from 'react-icons/ai';
+import {
+  AiFillMoneyCollect,
+  AiFillCustomerService,
+  AiFillSecurityScan,
+} from 'react-icons/ai';
 
 export default function Home() {
   return (
@@ -50,25 +54,29 @@ export default function Home() {
             improvementA: 'Your money yielding 100% ',
             improvementB: 'Transaction alerts',
           }}
-          Icon={AiFillEnvironment}
+          Icon={AiFillMoneyCollect}
         />
         <Card
-          title="Investments"
-          content="In our bank you have support in your investments by our team of consultants"
+          title="Customer support"
+          content="We are here to help"
           list={{
-            improvementA: 'Your money yielding 100% ',
-            improvementB: 'Transaction alerts',
+            improvementA: 'Live chat',
+            improvementB: 'E-mail',
+            improvementC: 'Phone',
           }}
+          Icon={AiFillCustomerService}
         />
         <Card
-          title="Investments"
-          content="In our bank you have support in your investments by our team of consultants"
+          title="Security"
+          content="We prioritize the security of your transaction "
           list={{
-            improvementA: 'Your money yielding 100% ',
-            improvementB: 'Transaction alerts',
+            improvementA: 'End-to-end encryption ',
+            improvementB: 'Suspicious activity notifications',
           }}
+          Icon={AiFillSecurityScan}
         />
       </ContainerSectionCard>
+      {/*TODO: SECTION COMMENTS */}
     </>
   );
 }
