@@ -15,6 +15,9 @@ import ButtonComponent from '@/components/button/Button';
 import { useState } from 'react';
 import { User } from '@/interfaces/user';
 import { handleSubmit, logToConsole } from '@/helpers/function';
+import api from '@/helpers/api';
+import { AxiosError, AxiosResponse } from 'axios';
+import { log } from 'console';
 
 const register = () => {
   const [user, setUser] = useState<User>({
@@ -28,6 +31,22 @@ const register = () => {
     confirmPassword: '',
   });
 
+  async function PostUser() {
+    console.log(process.env.API);
+    await api
+      .post('/user/register', user, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then((res: AxiosResponse) => {
+        logToConsole(res);
+      })
+      .catch((err: AxiosError) => {
+        logToConsole(err);
+      });
+  }
+
   return (
     <Container>
       <div className="welcome">
@@ -37,12 +56,6 @@ const register = () => {
           impedit obcaecati adipisci ullam, libero facere ducimus temporibus
           veritatis dolorem quos veniam praesentium, voluptates dolor,
           distinctio deserunt natus! Illum, itaque quasi!
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde culpa
-          accusantium vero, molestiae cumque architecto nemo tenetur
-          perspiciatis possimus, error vitae aperiam. Quaerat amet commodi
-          repellendus quas nemo obcaecati sequi.
         </p>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde culpa
@@ -111,7 +124,7 @@ const register = () => {
           }
         />
         <div className="centralize btn-register">
-          <ButtonComponent text="register" />
+          <ButtonComponent text="register" handleClick={PostUser} />
         </div>
       </FormRegister>
     </Container>
