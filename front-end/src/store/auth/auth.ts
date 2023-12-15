@@ -1,3 +1,4 @@
+import { logToConsole } from '@/helpers/function';
 import { createSlice } from '@reduxjs/toolkit';
 
  interface AuthUser{
@@ -18,10 +19,13 @@ export const userRegister = createSlice({
             
             if(token) {
                 newState.isLogged = true;
+                logToConsole(newState.isLogged)
                 return newState;
+                
             }
 
             newState.isLogged = true;
+            localStorage.setItem('state', `${newState.isLogged}`)
             return newState;
         },
 

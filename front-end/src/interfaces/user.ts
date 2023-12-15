@@ -1,4 +1,4 @@
-export interface User {
+export interface IUser {
   name: string,
   email: string,
   cpf: string,
@@ -7,4 +7,9 @@ export interface User {
   age: string,
   password: string,
   confirmPassword: string
+}
+
+export interface ILoginUser {
+  email: string,
+  password: string,
 }

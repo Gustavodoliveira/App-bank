@@ -1,7 +1,6 @@
 
 'use client'
-import { createGlobalStyle } from "styled-components";
-import { Poppins } from 'next/font/google';
+import styled, { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
 body{
@@ -28,3 +27,16 @@ a{
 }
 
 `;
+
+export const FormController = styled.form`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 7rem 0 0 0;
+
+
+  .btn-register{
+    margin-right: -15rem;
+  }
+
+
+`

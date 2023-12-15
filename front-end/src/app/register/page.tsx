@@ -1,7 +1,11 @@
 'use client';
 
-import { Container, FormRegister } from './style';
-import { Input } from '../../components/input/Input';
+import { useState } from 'react';
+import { IUser } from '@/interfaces/user';
+import { handleSubmit, logToConsole } from '@/helpers/function';
+import api from '@/helpers/api';
+import { AxiosError, AxiosResponse } from 'axios';
+
 import {
   FaRegUser,
   FaAddressCard,
@@ -11,16 +15,17 @@ import {
 } from 'react-icons/fa';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLockPasswordFill } from 'react-icons/ri';
-import ButtonComponent from '@/components/button/Button';
-import { useState } from 'react';
-import { User } from '@/interfaces/user';
-import { handleSubmit, logToConsole } from '@/helpers/function';
-import api from '@/helpers/api';
-import { AxiosError, AxiosResponse } from 'axios';
-import { log } from 'console';
 
-const register = () => {
-  const [user, setUser] = useState<User>({
+import ButtonComponent from '@/components/button/Button';
+import { Input } from '../../components/input/Input';
+import { FormController } from '@/styles/GlobalStyle';
+import { Container, FormRegister } from './style';
+import { login } from '@/store/auth/auth';
+import { useRouter } from 'next/navigation';
+import store from '@/store/store';
+
+const Register = () => {
+  const [user, setUser] = useState<IUser>({
     name: '',
     email: '',
     cpf: '',
@@ -30,9 +35,9 @@ const register = () => {
     password: '',
     confirmPassword: '',
   });
+  const navigate = useRouter();
 
   async function PostUser() {
-    console.log(process.env.API);
     await api
       .post('/user/register', user, {
         headers: {
@@ -40,7 +45,8 @@ const register = () => {
         },
       })
       .then((res: AxiosResponse) => {
-        logToConsole(res);
+        navigate.push('/');
+        store.dispatch(login());
       })
       .catch((err: AxiosError) => {
         logToConsole(err);
@@ -64,7 +70,7 @@ const register = () => {
           repellendus quas nemo obcaecati sequi.
         </p>
       </div>
-      <FormRegister onSubmit={handleSubmit}>
+      <FormController onSubmit={handleSubmit}>
         <Input
           type="text"
           placeholder="Name"
@@ -126,9 +132,9 @@ const register = () => {
         <div className="centralize btn-register">
           <ButtonComponent text="register" handleClick={PostUser} />
         </div>
-      </FormRegister>
+      </FormController>
     </Container>
   );
 };
 
-export default register;
+export default Register;
