@@ -33,9 +33,19 @@ export const FormController = styled.form`
   grid-template-columns: 1fr 1fr;
   margin: 7rem 0 0 0;
 
+  @media (max-width: 750px) {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: auto;
+
+  }
 
   .btn-register{
     margin-right: -15rem;
+
+    @media (max-width: 750px) {
+      margin-right: -2rem;
+    }
   }
 
 

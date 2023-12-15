@@ -19,7 +19,7 @@ import { RiLockPasswordFill } from 'react-icons/ri';
 import ButtonComponent from '@/components/button/Button';
 import { Input } from '../../components/input/Input';
 import { FormController } from '@/styles/GlobalStyle';
-import { Container, FormRegister } from './style';
+import { Container, SectionWelcome } from './style';
 import { login } from '@/store/auth/auth';
 import { useRouter } from 'next/navigation';
 import store from '@/store/store';
@@ -55,7 +55,7 @@ const Register = () => {
 
   return (
     <Container>
-      <div className="welcome">
+      <SectionWelcome>
         <h1>Create your account on our app</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore
@@ -69,7 +69,7 @@ const Register = () => {
           perspiciatis possimus, error vitae aperiam. Quaerat amet commodi
           repellendus quas nemo obcaecati sequi.
         </p>
-      </div>
+      </SectionWelcome>
       <FormController onSubmit={handleSubmit}>
         <Input
           type="text"

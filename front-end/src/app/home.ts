@@ -30,7 +30,7 @@ export const ContainerSectionText = styled.main`
 
 
   & > div > h2{
-    max-width: 25rem;
+    margin: 0 2rem;
     font-size: 1.2rem;
   }
 
@@ -39,6 +39,9 @@ export const ContainerSectionText = styled.main`
     font-size: .95rem;
   }
 
+  & > div > img {
+    margin: auto;
+  }
   
 }
 
@@ -69,5 +72,9 @@ export const ContainerSectionCard = styled.section`
   margin-left: 5rem;
   gap: 1.6rem;
 
+  @media (max-width: 750px ) {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
   
 `

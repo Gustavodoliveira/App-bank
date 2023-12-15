@@ -6,7 +6,7 @@ export const Container = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 5rem ;
+  padding: 0 5rem;
   font-weight: 400;
   border-bottom: .1rem solid ${({theme}) => theme.colors.secondary};
   position: relative;
@@ -54,6 +54,7 @@ export const NavContainer = styled.nav`
 }
 
   @media (max-width:700px) {
+
       .menu{
         display: block;
         z-index: 2;

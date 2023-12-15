@@ -1,6 +1,5 @@
 'use client';
 import { Input } from '@/components/input/Input';
-import { Container, SectionWelcome } from './style';
 import ButtonComponent from '@/components/button/Button';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { AiOutlineMail } from 'react-icons/ai';
@@ -9,18 +8,13 @@ import { ILoginUser } from '@/interfaces/user';
 import { useState } from 'react';
 import api from '@/helpers/api';
 import { AxiosError, AxiosResponse } from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { logToConsole } from '@/helpers/function';
+import { Container, SectionWelcome } from '../register/style';
 
 const login = () => {
   const [user, setUser] = useState<ILoginUser>({
     email: '',
     password: '',
   });
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   async function LoginUser() {
     await api
@@ -29,8 +23,6 @@ const login = () => {
         const { message, token, user } = resp.data;
         localStorage.setItem('token', JSON.stringify(token));
         localStorage.setItem('user', JSON.stringify(user));
-        dispatch(login());
-        navigate('/');
       })
       .catch((err: AxiosError) => {
         const message: any = err.response?.data;
@@ -45,6 +37,14 @@ const login = () => {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae dolores
           debitis labore ex nihil consequatur vel accusamus tempore eius. Quia
           recusandae voluptas enim error commodi et id ullam omnis asperiores?
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
+          doloribus, expedita cum quis porro saepe, modi quos vel id earum amet
+          dolor est accusantium ad ipsa hic impedit maxime ab. Lorem ipsum dolor
+          sit amet consectetur adipisicing elit. Nobis dolor hic sapiente eos
+          minus error reiciendis id at fugit maxime quae, odit, molestias et
+          blanditiis sed odio nihil dignissimos. Ea.
         </p>
       </SectionWelcome>
       <FormController>
