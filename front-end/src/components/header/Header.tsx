@@ -17,15 +17,24 @@ export const Header = () => {
           onClick={() => (Active ? isActive(false) : isActive(true))}
         />
         <ul className={Active ? 'active' : ''}>
-          <li className="after-border-bottom">
+          <li
+            className="after-border-bottom"
+            onClick={() => (Active ? isActive(false) : isActive(true))}
+          >
             <Link href="/register">Register</Link>
           </li>
 
-          <li className="after-border-bottom">
+          <li
+            className="after-border-bottom"
+            onClick={() => (Active ? isActive(false) : isActive(true))}
+          >
             <Link href="/login">Login</Link>
           </li>
 
-          <li className="after-border-bottom">
+          <li
+            className="after-border-bottom"
+            onClick={() => (Active ? isActive(false) : isActive(true))}
+          >
             <Link href="/about">About</Link>
           </li>
         </ul>

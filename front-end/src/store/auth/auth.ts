@@ -3,10 +3,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
  interface AuthUser{
     isLogged: boolean,
+    token: string
 }
 
 const initialState: AuthUser = {
     isLogged: false || true,
+    token: '',
 };
 
 export const userRegister = createSlice({

@@ -1,4 +1,5 @@
 'use client';
+
 import { Input } from '@/components/input/Input';
 import ButtonComponent from '@/components/button/Button';
 import { RiLockPasswordFill } from 'react-icons/ri';
@@ -9,12 +10,17 @@ import { useState } from 'react';
 import api from '@/helpers/api';
 import { AxiosError, AxiosResponse } from 'axios';
 import { Container, SectionWelcome } from '../register/style';
+import store from '@/store/store';
+import { useRouter } from 'next/navigation';
+import { login } from '@/store/auth/auth';
 
-const login = () => {
+const Login = () => {
   const [user, setUser] = useState<ILoginUser>({
     email: '',
     password: '',
   });
+
+  const navigate = useRouter();
 
   async function LoginUser() {
     await api
@@ -23,6 +29,8 @@ const login = () => {
         const { message, token, user } = resp.data;
         localStorage.setItem('token', JSON.stringify(token));
         localStorage.setItem('user', JSON.stringify(user));
+        store.dispatch(login());
+        navigate.push('/home');
       })
       .catch((err: AxiosError) => {
         const message: any = err.response?.data;
@@ -70,4 +78,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;
