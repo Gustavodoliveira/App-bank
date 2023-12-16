@@ -1,5 +1,5 @@
 import { logToConsole } from '@/helpers/function';
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
  interface AuthUser{
     isLogged: boolean,
@@ -7,7 +7,7 @@ import { createSlice } from '@reduxjs/toolkit';
 }
 
 const initialState: AuthUser = {
-    isLogged: false || true,
+    isLogged: false ,
     token: '',
 };
 
@@ -15,29 +15,12 @@ export const userRegister = createSlice({
     name: 'Register',
     initialState,
     reducers: {
-        login: (state) => {
-            const newState = {...state};   
-            const token = localStorage.getItem('token');
-            
-            if(token) {
-                newState.isLogged = true;
-                logToConsole(newState.isLogged)
-                return newState;
-                
-            }
-
-            newState.isLogged = true;
-            localStorage.setItem('state', `${newState.isLogged}`)
-            return newState;
+        login: (state, action: PayloadAction<boolean>) => {
+            state.isLogged = action.payload
         },
 
-        logout: (state) => {
-            const newState = {...state};
-            newState.isLogged = false;
-            localStorage.removeItem('token');
-            localStorage.removeItem('logged');
-            localStorage.removeItem('user');
-            return newState;
+        logout: (state, action: PayloadAction<boolean>) => {
+              state.isLogged = action.payload
         }
     }
 });

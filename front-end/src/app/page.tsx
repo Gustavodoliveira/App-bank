@@ -15,13 +15,10 @@ import {
   AiFillCustomerService,
   AiFillSecurityScan,
 } from 'react-icons/ai';
-import { RootState } from '@/store/store';
-import { useSelector } from 'react-redux';
-import { logToConsole } from '@/helpers/function';
+import store from '@/store/store';
 
 export default function Home() {
-  const userAuth = useSelector((state: RootState) => state.isLogged);
-  logToConsole(userAuth);
+  const userAuth = store.getState().isLogged;
 
   return (
     <>

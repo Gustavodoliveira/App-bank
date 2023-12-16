@@ -1,42 +1,9 @@
 'use client';
 
-import { Input } from '@/components/input/Input';
-import ButtonComponent from '@/components/button/Button';
-import { RiLockPasswordFill } from 'react-icons/ri';
-import { AiOutlineMail } from 'react-icons/ai';
-import { FormController } from '@/styles/GlobalStyle';
-import { ILoginUser } from '@/interfaces/user';
-import { useState } from 'react';
-import api from '@/helpers/api';
-import { AxiosError, AxiosResponse } from 'axios';
 import { Container, SectionWelcome } from '../register/style';
-import store from '@/store/store';
-import { useRouter } from 'next/navigation';
-import { login } from '@/store/auth/auth';
+import FormLogin from './FormLogin';
 
 const Login = () => {
-  const [user, setUser] = useState<ILoginUser>({
-    email: '',
-    password: '',
-  });
-
-  const navigate = useRouter();
-
-  async function LoginUser() {
-    await api
-      .post('/user/login', user)
-      .then((resp: AxiosResponse) => {
-        const { message, token, user } = resp.data;
-        localStorage.setItem('token', JSON.stringify(token));
-        localStorage.setItem('user', JSON.stringify(user));
-        store.dispatch(login());
-        navigate.push('/home');
-      })
-      .catch((err: AxiosError) => {
-        const message: any = err.response?.data;
-      });
-  }
-
   return (
     <Container>
       <SectionWelcome>
@@ -55,25 +22,7 @@ const Login = () => {
           blanditiis sed odio nihil dignissimos. Ea.
         </p>
       </SectionWelcome>
-      <FormController>
-        <Input
-          type="e-mail"
-          placeholder="E-mail"
-          name="email"
-          Icon={AiOutlineMail}
-          handleChange={(e) => setUser({ ...user, email: e.target.value })}
-        />
-        <Input
-          type="password"
-          placeholder="Password"
-          name="password"
-          Icon={RiLockPasswordFill}
-          handleChange={(e) => setUser({ ...user, password: e.target.value })}
-        />
-        <div className="centralize btn-register">
-          <ButtonComponent text="login" handleClick={LoginUser} />
-        </div>
-      </FormController>
+      <FormLogin />
     </Container>
   );
 };

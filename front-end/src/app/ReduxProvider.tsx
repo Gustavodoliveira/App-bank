@@ -1,11 +1,16 @@
 'use client';
 
-import { AppProps } from 'next/app';
-
 import { Provider } from 'react-redux';
 ('react-redux');
 import store from '../store/store';
+import { persistStore } from 'redux-persist';
 
-export const MyApp = ({ children }: { children: React.ReactNode }) => {
+persistStore(store);
+
+export default function ReduxProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return <Provider store={store}>{children}</Provider>;
-};
+}

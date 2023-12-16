@@ -4,7 +4,7 @@ import { GlobalStyle } from '@/styles/GlobalStyle';
 import Providers from './_providers';
 import { Header } from '@/components/header/Header';
 import { Footer } from '@/components/footer/Footer';
-import { MyApp } from './_myApp';
+import ReduxProvider from './ReduxProvider';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -24,14 +24,14 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={poppins.className}>
-        <MyApp>
+        <ReduxProvider>
           <Providers>
             <Header />
             <GlobalStyle />
             {children}
             <Footer />
           </Providers>
-        </MyApp>
+        </ReduxProvider>
       </body>
     </html>
   );
