@@ -2,7 +2,7 @@
 
 import { Container, SectionWelcome } from './style';
 import FormRegisterWrapper from './FormRegisterWrapper';
-import { Header } from '@/components/header/Header';
+import  Header  from '@/components/header/Header';
 
 const Register = () => {
   return (

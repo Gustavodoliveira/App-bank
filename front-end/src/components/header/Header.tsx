@@ -9,8 +9,9 @@ import store from '@/store/store';
 import { logout } from '@/store/auth/auth';
 import { useRouter } from 'next/navigation';
 
-export const Header = () => {
+const Header = () => {
   const [Active, isActive] = useState(false);
+  const [Window, isWindow] = useState(false);
   const userAuth = store.getState().isLogged;
   const navigate = useRouter();
 
@@ -60,3 +61,5 @@ export const Header = () => {
     </Container>
   );
 };
+
+export default Header;

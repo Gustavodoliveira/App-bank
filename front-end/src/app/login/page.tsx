@@ -1,6 +1,6 @@
 'use client';
 
-import { Header } from '@/components/header/Header';
+import Header from '@/components/header/Header';
 import { Container, SectionWelcome } from '../register/style';
 import FormLogin from './FormLogin';
 

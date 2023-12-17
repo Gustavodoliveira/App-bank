@@ -43,8 +43,6 @@ const RegisterForm = () => {
       })
       .then((res: AxiosResponse) => {
         dispatch(login(true));
-        console.log(store.getState().isLogged);
-
         navigate.push('/home');
       })
       .catch((err: AxiosError) => {

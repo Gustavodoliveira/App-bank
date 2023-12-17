@@ -16,7 +16,7 @@ import {
   AiFillSecurityScan,
 } from 'react-icons/ai';
 import store from '@/store/store';
-import { Header } from '@/components/header/Header';
+import Header from '@/components/header/Header';
 
 export default function Home() {
   const userAuth = store.getState().isLogged;

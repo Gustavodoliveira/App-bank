@@ -3,6 +3,7 @@
 import ButtonComponent from '@/components/button/Button';
 import { Input } from '@/components/input/Input';
 import api from '@/helpers/api';
+import { handleSubmit } from '@/helpers/function';
 import { ILoginUser } from '@/interfaces/user';
 import { login } from '@/store/auth/auth';
 import store from '@/store/store';
@@ -25,19 +26,16 @@ const FormLogin = () => {
     await api
       .post('/user/login', user)
       .then((resp: AxiosResponse) => {
-        const { message, token, user } = resp.data;
-        localStorage.setItem('token', JSON.stringify(token));
-        localStorage.setItem('user', JSON.stringify(user));
         store.dispatch(login(true));
         navigate.push('/home');
       })
       .catch((err: AxiosError) => {
-        const message: any = err.response?.data;
+        console.log(err);
       });
   }
 
   return (
-    <FormController>
+    <FormController onSubmit={handleSubmit}>
       <Input
         type="e-mail"
         placeholder="E-mail"
