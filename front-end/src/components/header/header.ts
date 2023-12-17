@@ -11,15 +11,21 @@ export const Container = styled.header`
   border-bottom: .1rem solid ${({theme}) => theme.colors.secondary};
   position: relative;
 
-    .menu{
+.menu{
   display: none;
   cursor: pointer;
+}
+
+.icon-logout{
+  color: ${({theme}) => theme.colors.tertiary};
 }
 
 `
 
 export const NavContainer = styled.nav`
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 2rem;
   font-size: 1.1rem;
 

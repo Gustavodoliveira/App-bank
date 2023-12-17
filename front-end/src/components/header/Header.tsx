@@ -23,16 +23,10 @@ const Header = () => {
           className="menu"
           onClick={() => (Active ? isActive(false) : isActive(true))}
         />
+
         <ul className={Active ? 'active' : ''}>
           {userAuth ? (
-            <li>
-              <AiOutlineLogout
-                onClick={() => {
-                  store.dispatch(logout(false));
-                  navigate.push('/');
-                }}
-              />
-            </li>
+            <li>Transfer</li>
           ) : (
             <>
               <li
@@ -57,6 +51,15 @@ const Header = () => {
             <Link href="/about">About</Link>
           </li>
         </ul>
+        {userAuth && (
+          <AiOutlineLogout
+            className="icon icon-logout"
+            onClick={() => {
+              store.dispatch(logout(false));
+              navigate.push('/');
+            }}
+          />
+        )}
       </NavContainer>
     </Container>
   );

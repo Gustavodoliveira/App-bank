@@ -1,5 +1,6 @@
 import React from 'react';
 import { Btn } from './button';
+import { handleSubmit } from '@/helpers/function';
 
 export interface ButtonProps {
   handleClick?: React.MouseEventHandler<HTMLButtonElement>;
@@ -7,7 +8,11 @@ export interface ButtonProps {
 }
 
 const ButtonComponent = ({ handleClick, text }: ButtonProps) => {
-  return <Btn onClick={handleClick}>{text}</Btn>;
+  return (
+    <Btn onSubmit={handleSubmit} onClick={handleClick}>
+      {text}
+    </Btn>
+  );
 };
 
 export default ButtonComponent;

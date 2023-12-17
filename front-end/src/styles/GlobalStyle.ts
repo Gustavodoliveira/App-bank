@@ -26,6 +26,10 @@ a{
   justify-content: center;
 }
 
+.icon {
+  cursor: pointer;
+}
+
 `;
 
 export const FormController = styled.form`
