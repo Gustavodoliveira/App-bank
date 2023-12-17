@@ -5,6 +5,7 @@ import Providers from './_providers';
 import { Header } from '@/components/header/Header';
 import { Footer } from '@/components/footer/Footer';
 import ReduxProvider from './ReduxProvider';
+import dynamic from 'next/dynamic';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -26,7 +27,6 @@ export default function RootLayout({
       <body className={poppins.className}>
         <ReduxProvider>
           <Providers>
-            <Header />
             <GlobalStyle />
             {children}
             <Footer />
