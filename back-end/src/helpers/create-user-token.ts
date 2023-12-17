@@ -7,13 +7,13 @@ import { userModel } from 'src/models/User';
 const createUserToken = async (user: userModel, req: Request, res: Response) => {
 
 	const token = Jwt.sign({
-		user: user
+		user: user.id
 	}, `${process.env.jwtSecret}`);
 
 	res.status(200).json({
 		message: 'you are authenticated',
 		token,
-		user: user
+		user: user.id
 	});
 };
 

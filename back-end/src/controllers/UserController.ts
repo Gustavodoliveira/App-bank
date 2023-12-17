@@ -119,7 +119,8 @@ export default class UserController {
 
 		if(!checkPassword) return res.status(401).json({message: 'Your password is invalid'});
 
-		return await createUserToken(user, req, res);
+
+		await createUserToken(user, req, res);
 	}
 
 	static async userUpdate(req: Request, res: Response) {

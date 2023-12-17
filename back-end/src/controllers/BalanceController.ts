@@ -6,10 +6,11 @@ import getUserByToken from '../helpers/get-user-by-token';
 import getToken from '../helpers/get-token';
 
 export default class balanceController {
-	static async getDepositValueBalance (req: Request, res: Response) {
+
+	static async CreateBalance (req: Request, res: Response) {
 		const { balanceValue, userId } = req.body;
 
-		const value = Number.parseInt(balanceValue);
+		const value = Number.parseInt(balanceValue || 0);
 		const id: string = userId ;
 
 
@@ -21,7 +22,7 @@ export default class balanceController {
 		if(!user) return res.status(401).json({message: 'you are not user'});
 
 
-		if(!balanceValue) return res.status(401).json({message: 'we need a deposit amount'});
+		if(balanceUserId) return res.status(401).json({message: 'Account already exists'});
 
 
 
@@ -33,11 +34,37 @@ export default class balanceController {
 
 			return res.status(200).json({message: 'your deposit was made successfully'});
 		} catch (error) {
-			console.log(error);
+			return res.status(500).json({ message: 'we are having server problems'});
 
 		}
 
 
+	}
+
+	static async DepositValue(req:Request, res:Response) {
+		const {userId, Amount} = req.body;
+
+		if(!Amount) res.status(400).json({message: 'We need amount value'});
+
+		const userBalance = await balanceModel.findOne({where: {userId: userId}});
+
+		if(!userBalance) return res.status(400).json({message: 'you don`t have an account'});
+
+		let balanceValue = userBalance?.balance;
+
+		balanceValue = balanceValue + Amount;
+
+		try {
+			userBalance.update({
+				balance: balanceValue
+			},{where: {userId: userId}});
+
+			return res.status(200).json({message: 'success deposit value'});
+
+		} catch (error) {
+			console.log(error);
+
+		}
 	}
 
 	static async getBalance (req: Request, res:Response) {
@@ -74,6 +101,8 @@ export default class balanceController {
 
 		if(!balance) return res.status(401).json({message: 'you need to do a deposit '});
 
+		if(balance.balance < value) return res.status(303).json({message: 'you balance value insufficient'});
+
 		const newBalance = balance.balance - value;
 
 		try {
@@ -81,9 +110,9 @@ export default class balanceController {
 				balance: newBalance,
 			});
 
-			return res.status(200).json({ message: balanceNew});
+			return res.status(200).json({ message: `your new balance ${balanceNew}`});
 		} catch (error) {
-			console.log(error);
+			return res.status(500).json({ message: 'we are having server problems'});
 
 		}
 

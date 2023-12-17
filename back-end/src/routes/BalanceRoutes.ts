@@ -4,7 +4,8 @@ import { Router } from 'express';
 const routerBalance = Router();
 
 routerBalance.get('/getBalance', checkUserToken, balanceControllerer.getBalance);
-routerBalance.post('/deposit',checkUserToken, balanceControllerer.getDepositValueBalance);
+routerBalance.post('/create',checkUserToken, balanceControllerer.CreateBalance);
+routerBalance.post('/deposit',checkUserToken, balanceControllerer.DepositValue);
 routerBalance.post('/payment', checkUserToken, balanceControllerer.payment);
 
 
