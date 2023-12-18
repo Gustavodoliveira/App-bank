@@ -17,9 +17,18 @@ import {
 } from 'react-icons/ai';
 import store from '@/store/store';
 import Header from '@/components/header/Header';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const userAuth = store.getState().isLogged;
+  const navigate = useRouter();
+
+  useEffect(() => {
+    if (userAuth) {
+      navigate.push('/home');
+    }
+  }, [userAuth]);
 
   return (
     <>

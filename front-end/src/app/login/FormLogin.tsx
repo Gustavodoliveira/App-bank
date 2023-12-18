@@ -26,6 +26,9 @@ const FormLogin = () => {
     await api
       .post('/user/login', user)
       .then((resp: AxiosResponse) => {
+        const { token, user } = resp.data;
+        localStorage.setItem('user', user);
+        localStorage.setItem('token', token);
         store.dispatch(login(true));
         navigate.push('/home');
       })
