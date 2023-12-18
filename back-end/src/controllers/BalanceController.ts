@@ -2,22 +2,23 @@
 import { Request, Response } from 'express';
 import { balanceModel } from '../models/Balance';
 import { Users } from '../models/User';
-import getUserByToken from '../helpers/get-user-by-token';
-import getToken from '../helpers/get-token';
 
 export default class balanceController {
 
 	static async CreateBalance (req: Request, res: Response) {
-		const { balanceValue, userId } = req.body;
+		const balanceValue = req.body;
+		const {userId} = req.body;
+
+
+
 
 		const value = Number.parseInt(balanceValue || 0);
-		const id: string = userId ;
 
 
 
 
-		const user = await Users.findOne({where: {id: id }});
-		const balanceUserId = await balanceModel.findOne({ where: { userId: id}});
+		const user = await Users.findOne({where: {id: userId}});
+		const balanceUserId = await balanceModel.findOne({ where: { userId: userId}});
 
 		if(!user) return res.status(401).json({message: 'you are not user'});
 
