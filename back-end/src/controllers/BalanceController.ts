@@ -2,6 +2,9 @@
 import { Request, Response } from 'express';
 import { balanceModel } from '../models/Balance';
 import { Users } from '../models/User';
+import getToken from '../helpers/get-token';
+import getUserByToken from '../helpers/get-user-by-token';
+import { userModel } from '../models/User';
 
 export default class balanceController {
 
@@ -69,10 +72,16 @@ export default class balanceController {
 	}
 
 	static async getBalance (req: Request, res:Response) {
-		const {userId }= req.body;
+		const token = getToken(req);
+
+		if(!token) return res.status(400).json({message: 'you are not authenticared'});
+
+		const userId = await getUserByToken(token);
+
+		if(!userId) return;
 		let  valueBalance = 0;
 
-		const idUser = await balanceModel.findOne({where: {userId: userId}}) ;
+		const idUser = await balanceModel.findOne({where: {userId: userId.id}}) ;
 
 		if(!idUser) return res.status(204).json({valueBalance});
 
