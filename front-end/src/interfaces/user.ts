@@ -10,6 +10,17 @@ export interface IUser {
   confirmPassword: string
 }
 
+export interface IUserLogin {
+  id: string,
+  name: string,
+  email: string,
+  cpf: string,
+  address: string,
+  phone: string,
+  age: string,
+  password: string,
+}
+
 export interface ILoginUser {
   email: string,
   password: string,

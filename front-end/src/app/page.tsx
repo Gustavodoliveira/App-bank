@@ -16,23 +16,27 @@ import {
   AiFillSecurityScan,
 } from 'react-icons/ai';
 import store from '@/store/store';
-import Header from '@/components/header/Header';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
+import { parseCookies } from 'nookies';
 
 export default function Home() {
-  const userAuth = store.getState().isLogged;
   const navigate = useRouter();
+  const HeaderNoSSR = dynamic(() => import('../components/header/Header'), {
+    ssr: false,
+  });
 
   useEffect(() => {
-    if (userAuth) {
+    const { token } = parseCookies();
+    if (token) {
       navigate.push('/home');
     }
-  }, [userAuth]);
+  }, []);
 
   return (
     <>
-      <Header />
+      <HeaderNoSSR />
       <ContainerSectionText>
         <ContainerDivText>
           <h2>Create your account with our bank</h2>

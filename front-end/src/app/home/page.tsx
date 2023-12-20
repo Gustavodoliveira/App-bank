@@ -1,51 +1,52 @@
 'use client';
-
 import PaymentModal from '@/components/PaymentModal/PaymentModal';
 import ButtonComponent from '@/components/button/Button';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import api from '@/helpers/api';
 import { AxiosError, AxiosResponse } from 'axios';
+import { GetServerSideProps } from 'next';
+import { parseCookies } from 'nookies';
 
 const HomeApp = () => {
-  const [Modal, setModal] = useState(false);
-  const [Token, setToken] = useState<string>('');
-
-  const [userId, setuserId] = useState({
-    userId: '',
-  });
+  //const [Modal, setModal] = useState(false);
 
   const HeaderNoSSR = dynamic(() => import('../../components/header/Header'), {
     ssr: false,
   });
 
-  // get token and user the local storage
   useEffect(() => {
-    const iToken = localStorage.getItem('token');
-    if (!iToken) return;
-    setToken(JSON.stringify(iToken));
+    const { token } = parseCookies();
 
-    const user = localStorage.getItem('user');
-    if (!user) return;
-    const iModel = user;
-
-    setuserId({ userId: iModel });
-  }, []);
-
-  async function BalanceCreate() {
     api
-      .post('/balance/create', userId, {
+      .get('/balance/getBalance', {
         headers: {
-          Authorization: `Bearer ${JSON.parse(Token)}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((resp: AxiosResponse) => {
         console.log(resp);
+        return { token, resp };
       })
       .catch((err: AxiosError) => {
         console.log(err);
       });
-  }
+  }, []);
+
+  //async function BalanceCreate() {
+  //  api
+  //    .post('/balance/create', userId, {
+  //      headers: {
+  //        Authorization: `Bearer ${JSON.parse(Token)}`,
+  //      },
+  //    })
+  //    .then((resp: AxiosResponse) => {
+  //      console.log(resp);
+  //    })
+  //    .catch((err: AxiosError) => {
+  //      console.log(err);
+  //    });
+  //}
 
   return (
     <>
@@ -55,10 +56,10 @@ const HomeApp = () => {
       <ButtonComponent
         text="Payment"
         handleClick={() => {
-          BalanceCreate();
+          //BalanceCreate();
         }}
       />
-      {Modal && <PaymentModal onClose={() => setModal(false)} />}
+      {/*{Modal && <PaymentModal onClose={() => setModal(false)} />}*/}
       {/* TODO: transfer modal */}
     </>
   );

@@ -1,14 +1,13 @@
 import { logToConsole } from '@/helpers/function';
+import {  IUserLogin } from '@/interfaces/user';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
  interface AuthUser{
     isLogged: boolean,
-    token: string
 }
 
 const initialState: AuthUser = {
-    isLogged: false ,
-    token: '',
+    isLogged: false 
 };
 
 export const userRegister = createSlice({
@@ -18,6 +17,7 @@ export const userRegister = createSlice({
         login: (state, action: PayloadAction<boolean>) => {
             state.isLogged = action.payload
         },
+
 
         logout: (state, action: PayloadAction<boolean>) => {
               state.isLogged = action.payload

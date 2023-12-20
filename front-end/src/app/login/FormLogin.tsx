@@ -10,6 +10,7 @@ import store from '@/store/store';
 import { FormController } from '@/styles/GlobalStyle';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useRouter } from 'next/navigation';
+import { setCookie } from 'nookies';
 import React, { useState } from 'react';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLockPasswordFill } from 'react-icons/ri';
@@ -19,6 +20,7 @@ const FormLogin = () => {
     email: '',
     password: '',
   });
+  const [AuthUser, setAuthUser] = useState();
 
   const navigate = useRouter();
 
@@ -27,8 +29,10 @@ const FormLogin = () => {
       .post('/user/login', user)
       .then((resp: AxiosResponse) => {
         const { token, user } = resp.data;
-        localStorage.setItem('user', user);
-        localStorage.setItem('token', token);
+        setAuthUser(user);
+        setCookie(undefined, 'token', token, {
+          maxAge: 60 * 60 * 24, //24 hours
+        });
         store.dispatch(login(true));
         navigate.push('/home');
       })
