@@ -5,6 +5,10 @@ export const InputStyled = styled.input`
       border-radius: .2rem;
       padding: .3rem .4rem;
 
+      &[name='Modal'] {
+        border: 1px solid black;
+      }
+
       &:focus{
         outline: none;
       }

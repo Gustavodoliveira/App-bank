@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, NavContainer } from './header';
 import Link from 'next/link';
 
@@ -8,12 +8,18 @@ import { AiOutlineMenu, AiOutlineLogout } from 'react-icons/ai';
 import store from '@/store/store';
 import { logout } from '@/store/auth/auth';
 import { useRouter } from 'next/navigation';
+import { destroyCookie, parseCookies } from 'nookies';
 
 const Header = () => {
   const [Active, isActive] = useState(false);
-  const [Window, isWindow] = useState(false);
-  const userAuth = store.getState().isLogged;
+  const [UserAuth, setUserAuth] = useState<boolean>(false);
   const navigate = useRouter();
+
+  useEffect(() => {
+    const { token } = parseCookies();
+    if (!token) return;
+    setUserAuth(store.getState().isLogged);
+  }, []);
 
   return (
     <Container>
@@ -25,7 +31,7 @@ const Header = () => {
         />
 
         <ul className={Active ? 'active' : ''}>
-          {userAuth ? (
+          {UserAuth ? (
             <li>Transfer</li>
           ) : (
             <>
@@ -51,11 +57,12 @@ const Header = () => {
             <Link href="/about">About</Link>
           </li>
         </ul>
-        {userAuth && (
+        {UserAuth && (
           <AiOutlineLogout
             className="icon icon-logout"
             onClick={() => {
               store.dispatch(logout(false));
+              destroyCookie(undefined, 'token');
               navigate.push('/');
             }}
           />

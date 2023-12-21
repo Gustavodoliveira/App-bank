@@ -5,7 +5,7 @@ import { Input } from '@/components/input/Input';
 import api from '@/helpers/api';
 import { handleSubmit } from '@/helpers/function';
 import { ILoginUser } from '@/interfaces/user';
-import { login } from '@/store/auth/auth';
+import { login, setUserState } from '@/store/auth/auth';
 import store from '@/store/store';
 import { FormController } from '@/styles/GlobalStyle';
 import { AxiosError, AxiosResponse } from 'axios';
@@ -29,11 +29,12 @@ const FormLogin = () => {
       .post('/user/login', user)
       .then((resp: AxiosResponse) => {
         const { token, user } = resp.data;
-        setAuthUser(user);
         setCookie(undefined, 'token', token, {
           maxAge: 60 * 60 * 24, //24 hours
         });
+
         store.dispatch(login(true));
+        store.dispatch(setUserState(user));
         navigate.push('/home');
       })
       .catch((err: AxiosError) => {

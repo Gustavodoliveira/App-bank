@@ -4,10 +4,12 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
  interface AuthUser{
     isLogged: boolean,
+    user: string
 }
 
 const initialState: AuthUser = {
-    isLogged: false 
+    isLogged: false ,
+    user: '',
 };
 
 export const userRegister = createSlice({
@@ -18,6 +20,9 @@ export const userRegister = createSlice({
             state.isLogged = action.payload
         },
 
+        setUserState: (state, action: PayloadAction<string>) => {
+          state.user = action.payload
+        },
 
         logout: (state, action: PayloadAction<boolean>) => {
               state.isLogged = action.payload
@@ -25,5 +30,5 @@ export const userRegister = createSlice({
     }
 });
 
-export const { login, logout } = userRegister.actions;
+export const { login, logout, setUserState } = userRegister.actions;
 export default userRegister.reducer;

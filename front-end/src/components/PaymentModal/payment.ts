@@ -15,8 +15,8 @@ export const ModalContainer = styled.div`
 `
 
 export const ModalWrapper = styled.div`
-  width: 400px;
-  height: 400px;
+  max-width: 300px;
+  max-height: 350px;
 `
 
 export const ModalBack = styled.div`
@@ -34,3 +34,15 @@ export const ModalHeader = styled.header`
   font-size: 1.2rem;
 
 `
+
+export const ContentContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .8rem;
+  justify-content: center;
+  margin: 2rem 0 0 1rem;
+
+  & > button {
+    margin-left: 2rem;
+  }
+`;

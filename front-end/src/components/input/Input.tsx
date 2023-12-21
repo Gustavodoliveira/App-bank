@@ -4,7 +4,7 @@ import React, { ChangeEventHandler } from 'react';
 import { Container, InputStyled, Label } from './input';
 import { IconType } from 'react-icons';
 
-interface InputProps {
+export interface InputProps {
   name: string;
   type: string;
   placeholder: string;
