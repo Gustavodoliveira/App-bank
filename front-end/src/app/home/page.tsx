@@ -1,4 +1,5 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
@@ -9,12 +10,16 @@ import api from '@/helpers/api';
 import ButtonComponent from '@/components/button/Button';
 import Modal from '../../components/PaymentModal/PaymentModal';
 import { MdAccountBalance } from 'react-icons/md';
+import { Container, PaymentSection, TransferSection } from './styled';
 
 const HomeApp = () => {
   const [modal, setModal] = useState<boolean>(false);
+  const [ModalDeposit, setModalDeposit] = useState<boolean>(false);
   const [Token, setToken] = useState<string>('');
   const [UserId, setUserId] = useState<string>('');
   const [Balance, setBalance] = useState<number>();
+
+  const navigate = useRouter();
 
   const HeaderNoSSR = dynamic(() => import('../../components/header/Header'), {
     ssr: false,
@@ -22,24 +27,27 @@ const HomeApp = () => {
 
   useEffect(() => {
     const { token } = parseCookies();
+
+    if (!token) {
+      navigate.push('/');
+    }
+
     setToken(token);
     setUserId(store.getState().user);
 
-    if (!token) return;
-
-    api
-      .get('/balance/getBalance', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((resp: AxiosResponse) => {
-        setBalance(resp.data?.valueBalance);
-        console.log(resp);
-      })
-      .catch((err: AxiosError) => {
-        console.log(err);
-      });
+    if (!token)
+      api
+        .get('/balance/getBalance', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((resp: AxiosResponse) => {
+          setBalance(resp.data?.valueBalance);
+        })
+        .catch((err: AxiosError) => {
+          useRouter().push('/not-found');
+        });
   }, []);
 
   function BalanceCreate() {
@@ -60,26 +68,69 @@ const HomeApp = () => {
   return (
     <>
       <HeaderNoSSR />
-      <h2>Welcome</h2>
-      <h3>Your balance: {Balance}</h3>
-      <ButtonComponent
-        text="Payment"
-        handleClick={() => {
-          setModal(true);
-        }}
-      />
-      {modal && (
-        <Modal
-          name="Modal"
-          placeholder="to pay account"
-          type="text"
-          key="Modal payment"
-          Title="Payment"
-          TextButton="Payment"
-          Icon={MdAccountBalance}
-          onClose={() => setModal(false)}
-        />
-      )}
+      <Container>
+        <PaymentSection>
+          <h2>Here you can pay your bill</h2>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Totam,
+            doloribus aperiam delectus nihil quasi voluptates id, et in optio
+            quos eveniet suscipit, amet accusantium voluptate molestiae tempora
+            libero! Alias, praesentium!
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla
+            dolorem voluptatum delectus minus molestiae animi ut soluta. Neque
+            inventore unde iure labore quae consequuntur, nulla soluta vitae
+            facere velit veritatis!
+          </p>
+          <ButtonComponent
+            text="Payment"
+            handleClick={() => {
+              setModal(true);
+            }}
+          />
+          {modal && (
+            <Modal
+              name="Modal"
+              placeholder="to pay account"
+              type="text"
+              key="Modal payment"
+              Title="Payment"
+              TextButton="Payment"
+              Icon={MdAccountBalance}
+              onClose={() => setModal(false)}
+            />
+          )}
+        </PaymentSection>
+        <TransferSection>
+          <h2>Deposit your money</h2>
+          <h3>Account: R$ {Balance}</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae
+            iste quo perspiciatis sit pariatur illum accusamus vero impedit
+            eaque facilis, reiciendis possimus praesentium expedita optio ipsa
+            saepe omnis! In, doloribus.
+          </p>
+          <ButtonComponent
+            text="Deposit"
+            handleClick={() => {
+              setModalDeposit(true);
+            }}
+          />
+          {ModalDeposit && (
+            <Modal
+              name="Modal"
+              placeholder="Deposit your money"
+              type="text"
+              key="Modal payment"
+              Title="Deposit"
+              TextButton="Deposit"
+              Icon={MdAccountBalance}
+              onClose={() => setModalDeposit(false)}
+            />
+          )}
+        </TransferSection>
+      </Container>
       {/* TODO: transfer modal */}
     </>
   );

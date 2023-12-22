@@ -14,6 +14,7 @@ import { IconType } from 'react-icons';
 
 interface ModalProps extends InputProps {
   onClose: any;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   Title: string;
   key: string;
   TextButton: string;
@@ -22,6 +23,7 @@ interface ModalProps extends InputProps {
 
 const Modal = ({
   onClose,
+  onClick,
   Title,
   name,
   placeholder,
@@ -58,7 +60,7 @@ const Modal = ({
               key="Payment"
               Icon={MdOutlinePayment}
             />
-            <ButtonComponent text={TextButton} />
+            <ButtonComponent text={TextButton} handleClick={onClick} />
           </ContentContainer>
         </ModalBack>
       </ModalWrapper>
