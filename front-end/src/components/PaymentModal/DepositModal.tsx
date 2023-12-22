@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ContentContainer,
   ModalBack,
@@ -11,23 +11,25 @@ import { MdOutlinePayment } from 'react-icons/md';
 import { Input, InputProps } from '../input/Input';
 import ButtonComponent from '../button/Button';
 import { IconType } from 'react-icons';
+import { userDeposit } from '@/interfaces/user';
+import api from '@/helpers/api';
+import { parseCookies } from 'nookies';
+import { AxiosError, AxiosResponse } from 'axios';
+import store from '@/store/store';
 
 interface ModalProps extends InputProps {
   onClose: any;
   nameTwo: string;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   Title: string;
   key: string;
   TextButton: string;
   Icon: IconType;
 }
 
-const Modal = ({
+const DepositModal = ({
   onClose,
-  onClick,
   Title,
   name,
-  nameTwo,
   placeholder,
   type,
   key,
@@ -39,6 +41,34 @@ const Modal = ({
     onClose();
   };
 
+  const [token, setToken] = useState<string>('');
+  const [user, setUser] = useState<userDeposit>({
+    Amount: '',
+    userId: '',
+  });
+
+  useEffect(() => {
+    const { token } = parseCookies();
+    const id = store.getState().user;
+    setUser({ userId: id, Amount: '' });
+    setToken(token);
+  }, []);
+
+  async function onClick() {
+    await api
+      .post('/balance/deposit', user, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((resp: AxiosResponse) => {
+        console.log(resp);
+      })
+      .catch((err: AxiosError) => {
+        console.log(err);
+      });
+  }
+  //TODO: create reducer state Modal
   return (
     <ModalContainer>
       <ModalWrapper>
@@ -54,13 +84,16 @@ const Modal = ({
               type={type}
               key={key}
               Icon={Icon}
+              value={user.userId}
+              handleChange={(e) => setUser({ ...user, userId: e.target.value })}
             />
             <Input
-              name={nameTwo}
+              name="Amount"
               placeholder="R$ "
               type="text"
               key="Payment"
               Icon={MdOutlinePayment}
+              handleChange={(e) => setUser({ ...user, Amount: e.target.value })}
             />
             <ButtonComponent text={TextButton} handleClick={onClick} />
           </ContentContainer>
@@ -70,4 +103,4 @@ const Modal = ({
   );
 };
 
-export default Modal;
+export default DepositModal;

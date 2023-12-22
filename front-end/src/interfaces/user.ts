@@ -21,6 +21,11 @@ export interface IUserLogin {
   password: string,
 }
 
+export interface userDeposit {
+  userId: string,
+  Amount: string
+}
+
 export interface ILoginUser {
   email: string,
   password: string,

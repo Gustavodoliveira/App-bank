@@ -11,6 +11,7 @@ import ButtonComponent from '@/components/button/Button';
 import Modal from '../../components/PaymentModal/PaymentModal';
 import { MdAccountBalance } from 'react-icons/md';
 import { Container, PaymentSection, TransferSection } from './styled';
+import DepositModal from '@/components/PaymentModal/DepositModal';
 
 const HomeApp = () => {
   const [modal, setModal] = useState<boolean>(false);
@@ -35,23 +36,23 @@ const HomeApp = () => {
     setToken(token);
     setUserId(store.getState().user);
 
-    if (!token)
-      api
-        .get('/balance/getBalance', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((resp: AxiosResponse) => {
-          setBalance(resp.data?.valueBalance);
-        })
-        .catch((err: AxiosError) => {
-          useRouter().push('/not-found');
-        });
+    api
+      .get('/balance/getBalance', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((resp: AxiosResponse) => {
+        setBalance(resp.data?.valueBalance);
+        console.log(resp);
+      })
+      .catch((err: AxiosError) => {
+        useRouter().push('/not-found');
+      });
   }, []);
 
-  function BalanceCreate() {
-    api
+  async function BalanceCreate() {
+    await api
       .post('/balance/create', UserId, {
         headers: {
           Authorization: `Bearer ${JSON.parse(Token)}`,
@@ -64,6 +65,10 @@ const HomeApp = () => {
         console.log(err);
       });
   }
+
+  //async function Deposit () {
+  //  const
+  //}
 
   return (
     <>
@@ -91,7 +96,8 @@ const HomeApp = () => {
           />
           {modal && (
             <Modal
-              name="Modal"
+              name="Account"
+              nameTwo="Payment"
               placeholder="to pay account"
               type="text"
               key="Modal payment"
@@ -118,8 +124,9 @@ const HomeApp = () => {
             }}
           />
           {ModalDeposit && (
-            <Modal
-              name="Modal"
+            <DepositModal
+              name="userId"
+              nameTwo="Amount"
               placeholder="Deposit your money"
               type="text"
               key="Modal payment"

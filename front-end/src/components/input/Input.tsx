@@ -10,6 +10,7 @@ export interface InputProps {
   placeholder: string;
   handleChange?: React.ChangeEventHandler<HTMLInputElement>;
   Icon?: IconType;
+  value?: string;
 }
 
 export const Input = ({
@@ -18,6 +19,7 @@ export const Input = ({
   placeholder,
   handleChange,
   Icon,
+  value,
 }: InputProps) => {
   return (
     <Container>
@@ -27,6 +29,7 @@ export const Input = ({
         placeholder={placeholder}
         onChange={handleChange}
         name={name}
+        value={value}
       />
     </Container>
   );
