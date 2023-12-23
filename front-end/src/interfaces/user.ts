@@ -1,5 +1,5 @@
 export interface IUser {
-  id: string,
+  id?: string,
   name: string,
   email: string,
   cpf: string,
@@ -11,7 +11,7 @@ export interface IUser {
 }
 
 export interface IUserLogin {
-  id: string,
+  id?: string,
   name: string,
   email: string,
   cpf: string,

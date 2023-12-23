@@ -2,10 +2,10 @@ import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import { GlobalStyle } from '@/styles/GlobalStyle';
 import Providers from './_providers';
-import { Header } from '@/components/header/Header';
 import { Footer } from '@/components/footer/Footer';
 import ReduxProvider from './ReduxProvider';
 import dynamic from 'next/dynamic';
+import { ToastContainer } from 'react-toastify';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -22,6 +22,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const HeaderNoSSR = dynamic(() => import('../components/header/Header'), {
+    ssr: false,
+  });
   return (
     <html lang="pt-br">
       <body className={poppins.className}>
@@ -29,6 +32,7 @@ export default function RootLayout({
           <Providers>
             <GlobalStyle />
             {children}
+            <ToastContainer autoClose={2000} />
             <Footer />
           </Providers>
         </ReduxProvider>

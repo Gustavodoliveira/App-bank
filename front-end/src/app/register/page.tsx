@@ -2,12 +2,13 @@
 
 import { Container, SectionWelcome } from './style';
 import FormRegisterWrapper from './FormRegisterWrapper';
-import  Header  from '@/components/header/Header';
+import dynamic from 'next/dynamic';
 
 const Register = () => {
+  const HeaderNoSSR = dynamic(() => import('../../components/header/Header'));
   return (
     <>
-      <Header />
+      <HeaderNoSSR />
       <Container>
         <SectionWelcome>
           <h1>Create your account on our app</h1>

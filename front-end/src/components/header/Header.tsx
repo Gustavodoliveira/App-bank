@@ -9,6 +9,7 @@ import store from '@/store/store';
 import { logout } from '@/store/auth/auth';
 import { useRouter } from 'next/navigation';
 import { destroyCookie, parseCookies } from 'nookies';
+import { revalidatePath } from 'next/cache';
 
 const Header = () => {
   const [Active, isActive] = useState(false);
@@ -19,7 +20,7 @@ const Header = () => {
     const { token } = parseCookies();
     if (!token) return;
     setUserAuth(store.getState().isLogged);
-  }, []);
+  }, [UserAuth]);
 
   return (
     <Container>
@@ -32,7 +33,12 @@ const Header = () => {
 
         <ul className={Active ? 'active' : ''}>
           {UserAuth ? (
-            <li>Transfer</li>
+            <li
+              className="after-border-bottom"
+              onClick={() => (Active ? isActive(false) : isActive(true))}
+            >
+              <Link href="/profile">Profile</Link>
+            </li>
           ) : (
             <>
               <li

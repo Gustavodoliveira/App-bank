@@ -19,22 +19,13 @@ const HomeApp = () => {
   const [Token, setToken] = useState<string>('');
   const [UserId, setUserId] = useState<string>('');
   const [Balance, setBalance] = useState<number>();
+  const HeaderNoSSR = dynamic(() => import('../../components/header/Header'));
 
   const navigate = useRouter();
 
-  const HeaderNoSSR = dynamic(() => import('../../components/header/Header'), {
-    ssr: false,
-  });
-
   useEffect(() => {
     const { token } = parseCookies();
-
-    if (!token) {
-      navigate.push('/');
-    }
-
     setToken(token);
-    setUserId(store.getState().user);
 
     api
       .get('/balance/getBalance', {
@@ -44,10 +35,9 @@ const HomeApp = () => {
       })
       .then((resp: AxiosResponse) => {
         setBalance(resp.data?.valueBalance);
-        console.log(resp);
       })
       .catch((err: AxiosError) => {
-        useRouter().push('/not-found');
+        console.log(err);
       });
   }, []);
 

@@ -4,11 +4,12 @@ import { Input } from '@/components/input/Input';
 import api from '@/helpers/api';
 import { handleSubmit, logToConsole } from '@/helpers/function';
 import { IUser } from '@/interfaces/user';
-import { login } from '@/store/auth/auth';
+import { login, setUserState } from '@/store/auth/auth';
 import store, { useAppDispatch } from '@/store/store';
 import { FormController } from '@/styles/GlobalStyle';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useRouter } from 'next/navigation';
+import { setCookie } from 'nookies';
 import React, { useState } from 'react';
 import { AiOutlineMail } from 'react-icons/ai';
 import {
@@ -42,7 +43,32 @@ const RegisterForm = () => {
         },
       })
       .then((res: AxiosResponse) => {
+        const { user, token } = res?.data;
+        const userId = {
+          id: user,
+        };
+        console.log(user);
+
         dispatch(login(true));
+        dispatch(setUserState(user));
+        setCookie(undefined, 'token', token, {
+          maxAge: 60 * 60 * 24, //24 hours
+        });
+
+        api
+          .post('/balance/create', userId, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((res: AxiosResponse) => {
+            const { message } = res?.data;
+            console.log(res);
+            console.log(message);
+          })
+          .catch((err: AxiosError) => {
+            console.log(err);
+          });
         navigate.push('/home');
       })
       .catch((err: AxiosError) => {

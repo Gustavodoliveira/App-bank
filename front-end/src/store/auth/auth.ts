@@ -4,12 +4,14 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
  interface AuthUser{
     isLogged: boolean,
-    user: string
+    user: string,
+    token: string
 }
 
 const initialState: AuthUser = {
     isLogged: false ,
     user: '',
+    token: '',
 };
 
 export const userRegister = createSlice({

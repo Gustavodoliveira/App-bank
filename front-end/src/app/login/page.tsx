@@ -1,13 +1,14 @@
 'use client';
 
-import Header from '@/components/header/Header';
+import dynamic from 'next/dynamic';
 import { Container, SectionWelcome } from '../register/style';
 import FormLogin from './FormLogin';
 
 const Login = () => {
+  const HeaderNoSSR = dynamic(() => import('../../components/header/Header'));
   return (
     <>
-      <Header />
+      <HeaderNoSSR />
       <Container>
         <SectionWelcome>
           <h1>Welcome back</h1>

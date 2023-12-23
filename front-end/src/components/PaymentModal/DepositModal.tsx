@@ -16,6 +16,7 @@ import api from '@/helpers/api';
 import { parseCookies } from 'nookies';
 import { AxiosError, AxiosResponse } from 'axios';
 import store from '@/store/store';
+import { toast } from 'react-toastify';
 
 interface ModalProps extends InputProps {
   onClose: any;
@@ -62,13 +63,13 @@ const DepositModal = ({
         },
       })
       .then((resp: AxiosResponse) => {
-        console.log(resp);
+        toast.success(resp?.data?.message);
       })
       .catch((err: AxiosError) => {
         console.log(err);
       });
   }
-  //TODO: create reducer state Modal
+
   return (
     <ModalContainer>
       <ModalWrapper>
