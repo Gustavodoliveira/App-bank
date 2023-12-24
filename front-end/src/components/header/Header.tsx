@@ -5,8 +5,8 @@ import { Container, NavContainer } from './header';
 import Link from 'next/link';
 
 import { AiOutlineMenu, AiOutlineLogout } from 'react-icons/ai';
-import store from '@/store/store';
-import { logout } from '@/store/auth/auth';
+import store, { useAppDispatch } from '@/store/store';
+import { logout, setBalance } from '@/store/auth/auth';
 import { useRouter } from 'next/navigation';
 import { destroyCookie, parseCookies } from 'nookies';
 import { revalidatePath } from 'next/cache';
@@ -15,6 +15,7 @@ const Header = () => {
   const [Active, isActive] = useState(false);
   const [UserAuth, setUserAuth] = useState<boolean>(false);
   const navigate = useRouter();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const { token } = parseCookies();
@@ -67,7 +68,8 @@ const Header = () => {
           <AiOutlineLogout
             className="icon icon-logout"
             onClick={() => {
-              store.dispatch(logout(false));
+              dispatch(logout(false));
+              dispatch(setBalance(false));
               destroyCookie(undefined, 'token');
               navigate.push('/');
             }}

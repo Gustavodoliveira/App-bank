@@ -54,21 +54,6 @@ const RegisterForm = () => {
         setCookie(undefined, 'token', token, {
           maxAge: 60 * 60 * 24, //24 hours
         });
-
-        api
-          .post('/balance/create', userId, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          .then((res: AxiosResponse) => {
-            const { message } = res?.data;
-            console.log(res);
-            console.log(message);
-          })
-          .catch((err: AxiosError) => {
-            console.log(err);
-          });
         navigate.push('/home');
       })
       .catch((err: AxiosError) => {

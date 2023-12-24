@@ -17,6 +17,7 @@ import { parseCookies } from 'nookies';
 import { AxiosError, AxiosResponse } from 'axios';
 import store from '@/store/store';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 interface ModalProps extends InputProps {
   onClose: any;
@@ -63,7 +64,8 @@ const DepositModal = ({
         },
       })
       .then((resp: AxiosResponse) => {
-        toast.success(resp?.data?.message);
+        onClose(false);
+        useRouter().refresh;
       })
       .catch((err: AxiosError) => {
         console.log(err);

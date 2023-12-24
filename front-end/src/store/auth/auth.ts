@@ -4,12 +4,14 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
  interface AuthUser{
     isLogged: boolean,
+    balance: boolean,
     user: string,
     token: string
 }
 
 const initialState: AuthUser = {
     isLogged: false ,
+    balance: false,
     user: '',
     token: '',
 };
@@ -26,11 +28,15 @@ export const userRegister = createSlice({
           state.user = action.payload
         },
 
+        setBalance: (state, action: PayloadAction<boolean>) => {
+          state.balance = action.payload
+        },
+
         logout: (state, action: PayloadAction<boolean>) => {
               state.isLogged = action.payload
         }
     }
 });
 
-export const { login, logout, setUserState } = userRegister.actions;
+export const { login, logout, setUserState, setBalance } = userRegister.actions;
 export default userRegister.reducer;

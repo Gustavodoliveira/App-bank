@@ -4,24 +4,51 @@ import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
 import { parseCookies } from 'nookies';
-import store from '@/store/store';
+import store, { useAppDispatch } from '@/store/store';
 import api from '@/helpers/api';
 
 import ButtonComponent from '@/components/button/Button';
-import Modal from '../../components/PaymentModal/PaymentModal';
+import Modal from '../../components/Modals/PaymentModal';
 import { MdAccountBalance } from 'react-icons/md';
 import { Container, PaymentSection, TransferSection } from './styled';
-import DepositModal from '@/components/PaymentModal/DepositModal';
+import DepositModal from '@/components/Modals/DepositModal';
+import { setBalance } from '@/store/auth/auth';
 
 const HomeApp = () => {
   const [modal, setModal] = useState<boolean>(false);
   const [ModalDeposit, setModalDeposit] = useState<boolean>(false);
+  const [balanceValue, setBalanceValue] = useState<number>();
   const [Token, setToken] = useState<string>('');
-  const [UserId, setUserId] = useState<string>('');
-  const [Balance, setBalance] = useState<number>();
+  const [UserId, setUserId] = useState({
+    id: '',
+  });
   const HeaderNoSSR = dynamic(() => import('../../components/header/Header'));
 
   const navigate = useRouter();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const { token } = parseCookies();
+    const balance = store.getState().balance;
+    const user = {
+      id: store.getState().user,
+    };
+
+    if (balance) return;
+    api
+      .post('/balance/create', user, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res: AxiosResponse) => {
+        const { message } = res?.data;
+        dispatch(setBalance(true));
+      })
+      .catch((err: AxiosError) => {
+        console.log(err);
+      });
+  }, []);
 
   useEffect(() => {
     const { token } = parseCookies();
@@ -34,31 +61,12 @@ const HomeApp = () => {
         },
       })
       .then((resp: AxiosResponse) => {
-        setBalance(resp.data?.valueBalance);
+        setBalanceValue(resp.data?.valueBalance);
       })
       .catch((err: AxiosError) => {
         console.log(err);
       });
   }, []);
-
-  async function BalanceCreate() {
-    await api
-      .post('/balance/create', UserId, {
-        headers: {
-          Authorization: `Bearer ${JSON.parse(Token)}`,
-        },
-      })
-      .then((resp: AxiosResponse) => {
-        console.log(resp);
-      })
-      .catch((err: AxiosError) => {
-        console.log(err);
-      });
-  }
-
-  //async function Deposit () {
-  //  const
-  //}
 
   return (
     <>
@@ -100,7 +108,7 @@ const HomeApp = () => {
         </PaymentSection>
         <TransferSection>
           <h2>Deposit your money</h2>
-          <h3>Account: R$ {Balance}</h3>
+          <h3>Account: R$ {balanceValue}</h3>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae
             iste quo perspiciatis sit pariatur illum accusamus vero impedit
