@@ -5,6 +5,7 @@ import Providers from './_providers';
 import { Footer } from '@/components/footer/Footer';
 import ReduxProvider from './ReduxProvider';
 import dynamic from 'next/dynamic';
+import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
 const poppins = Poppins({

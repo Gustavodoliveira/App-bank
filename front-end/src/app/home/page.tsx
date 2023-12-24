@@ -10,21 +10,17 @@ import api from '@/helpers/api';
 import ButtonComponent from '@/components/button/Button';
 import Modal from '../../components/Modals/PaymentModal';
 import { MdAccountBalance } from 'react-icons/md';
-import { Container, PaymentSection, TransferSection } from './styled';
+import { Container, DepositSection, PaymentSection } from './styled';
 import DepositModal from '@/components/Modals/DepositModal';
 import { setBalance } from '@/store/auth/auth';
+import { toast } from 'react-toastify';
 
 const HomeApp = () => {
   const [modal, setModal] = useState<boolean>(false);
   const [ModalDeposit, setModalDeposit] = useState<boolean>(false);
   const [balanceValue, setBalanceValue] = useState<number>();
-  const [Token, setToken] = useState<string>('');
-  const [UserId, setUserId] = useState({
-    id: '',
-  });
   const HeaderNoSSR = dynamic(() => import('../../components/header/Header'));
 
-  const navigate = useRouter();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -44,6 +40,7 @@ const HomeApp = () => {
       .then((res: AxiosResponse) => {
         const { message } = res?.data;
         dispatch(setBalance(true));
+        toast.success(message);
       })
       .catch((err: AxiosError) => {
         console.log(err);
@@ -52,7 +49,6 @@ const HomeApp = () => {
 
   useEffect(() => {
     const { token } = parseCookies();
-    setToken(token);
 
     api
       .get('/balance/getBalance', {
@@ -106,7 +102,7 @@ const HomeApp = () => {
             />
           )}
         </PaymentSection>
-        <TransferSection>
+        <DepositSection>
           <h2>Deposit your money</h2>
           <h3>Account: R$ {balanceValue}</h3>
           <p>
@@ -134,7 +130,7 @@ const HomeApp = () => {
               onClose={() => setModalDeposit(false)}
             />
           )}
-        </TransferSection>
+        </DepositSection>
       </Container>
       {/* TODO: transfer modal */}
     </>

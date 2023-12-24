@@ -65,7 +65,7 @@ const DepositModal = ({
       })
       .then((resp: AxiosResponse) => {
         onClose(false);
-        useRouter().refresh;
+        toast.success(resp?.data?.message);
       })
       .catch((err: AxiosError) => {
         console.log(err);

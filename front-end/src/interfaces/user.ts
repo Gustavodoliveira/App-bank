@@ -26,6 +26,12 @@ export interface userDeposit {
   Amount: string
 }
 
+export interface userPayment {
+  AccountName: string,
+  value: string,
+  id: string,
+}
+
 export interface ILoginUser {
   email: string,
   password: string,

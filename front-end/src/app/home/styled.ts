@@ -37,7 +37,7 @@ export const PaymentSection = styled.section`
 
 `;
 
-export const TransferSection = styled.section`
+export const DepositSection = styled.section`
 margin: 2rem 0;
 
 
