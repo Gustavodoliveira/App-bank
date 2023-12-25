@@ -31,11 +31,14 @@ export const NavContainer = styled.nav`
 
   & > ul {
     display: flex;
-    gap: 2rem;
+    align-items: center;
+    gap: 3rem;
     list-style: none;
 
     & > li {
+      margin-right: .5rem;
       position: relative;
+
     }
     
        

@@ -26,7 +26,10 @@ export interface userDeposit {
   userId: string,
   Amount: string
 }
-
+export interface userTransfer {
+  cpf: string,
+  value: string
+}
 export interface userPayment {
   AccountName: string,
   value: string,

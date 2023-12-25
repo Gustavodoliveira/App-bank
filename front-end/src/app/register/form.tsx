@@ -21,6 +21,7 @@ import {
   FaFileImage,
 } from 'react-icons/fa';
 import { RiLockPasswordFill } from 'react-icons/ri';
+import { toast } from 'react-toastify';
 
 const RegisterForm = () => {
   const [user, setUser] = useState<IUser>({
@@ -45,21 +46,21 @@ const RegisterForm = () => {
         },
       })
       .then((res: AxiosResponse) => {
-        const { user, token } = res?.data;
+        const { user, token, message } = res?.data;
         const userId = {
           id: user,
         };
-        console.log(user);
 
         dispatch(login(true));
         dispatch(setUserState(user));
         setCookie(undefined, 'token', token, {
           maxAge: 60 * 60 * 24, //24 hours
         });
+        toast.success(message);
         navigate.push('/home');
       })
       .catch((err: AxiosError) => {
-        logToConsole(err);
+        toast.error(err.response?.data?.message);
       });
   }
 

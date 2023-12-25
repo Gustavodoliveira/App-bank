@@ -10,14 +10,17 @@ import api from '@/helpers/api';
 import ButtonComponent from '@/components/button/Button';
 import Modal from '../../components/Modals/PaymentModal';
 import { MdAccountBalance } from 'react-icons/md';
-import { Container, DepositSection, PaymentSection } from './styled';
+import { Container, Sections } from './styled';
 import DepositModal from '@/components/Modals/DepositModal';
 import { setBalance } from '@/store/auth/auth';
 import { toast } from 'react-toastify';
+import TransferModal from '@/components/Modals/TransferModal';
+import { FaPassport } from 'react-icons/fa';
 
 const HomeApp = () => {
   const [modal, setModal] = useState<boolean>(false);
   const [ModalDeposit, setModalDeposit] = useState<boolean>(false);
+  const [ModalTransfer, setModalTransfer] = useState<boolean>(false);
   const [balanceValue, setBalanceValue] = useState<number>();
   const HeaderNoSSR = dynamic(() => import('../../components/header/Header'));
 
@@ -68,7 +71,7 @@ const HomeApp = () => {
     <>
       <HeaderNoSSR />
       <Container>
-        <PaymentSection>
+        <Sections id="Payment Section">
           <h2>Here you can pay your bill</h2>
           <p>
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Totam,
@@ -101,8 +104,8 @@ const HomeApp = () => {
               onClose={() => setModal(false)}
             />
           )}
-        </PaymentSection>
-        <DepositSection>
+        </Sections>
+        <Sections id="Deposit Section">
           <h2>Deposit your money</h2>
           <h3>Account: R$ {balanceValue}</h3>
           <p>
@@ -130,7 +133,41 @@ const HomeApp = () => {
               onClose={() => setModalDeposit(false)}
             />
           )}
-        </DepositSection>
+        </Sections>
+        <Sections id="Transfer Section">
+          <h2>Transfer you money</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
+            fuga quae culpa iusto odio assumenda aperiam cumque magni provident?
+            Consequatur ipsa sunt animi corporis, iure soluta optio eum iste
+            non.
+          </p>
+          <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem, atque
+            optio maxime quae similique, repudiandae, doloribus laudantium modi
+            illum eligendi doloremque necessitatibus neque ut fuga accusantium
+            eos repellat recusandae provident?
+          </p>
+          <ButtonComponent
+            text="Transfer"
+            handleClick={() => {
+              setModalTransfer(true);
+            }}
+          />
+
+          {ModalTransfer && (
+            <TransferModal
+              Title="Transfer"
+              name="cpf"
+              type="text"
+              Icon={FaPassport}
+              placeholder="Cpf"
+              key="Transfer modal"
+              onClose={() => setModalDeposit(false)}
+              TextButton="Transfer"
+            />
+          )}
+        </Sections>
       </Container>
       {/* TODO: transfer modal */}
     </>

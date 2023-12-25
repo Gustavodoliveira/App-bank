@@ -13,6 +13,7 @@ import api from '@/helpers/api';
 import { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 import { IUser } from '@/interfaces/user';
+import Image from '../imgComponent/Image';
 
 const Header = () => {
   const [Active, isActive] = useState(false);
@@ -37,7 +38,6 @@ const Header = () => {
     setUserAuth(store.getState().isLogged);
 
     const user = store.getState().user;
-    console.log(user);
 
     api
       .get(`user/getUser/${user}`, {
@@ -51,7 +51,7 @@ const Header = () => {
       .catch((err: AxiosError) => {
         toast.error('Something went wrong');
       });
-  }, [UserAuth]);
+  }, []);
 
   return (
     <Container>
@@ -61,15 +61,33 @@ const Header = () => {
           className="menu"
           onClick={() => (Active ? isActive(false) : isActive(true))}
         />
-        <img src={`${api}/public/${user.image}`} alt="" />
         <ul className={Active ? 'active' : ''}>
           {UserAuth ? (
-            <li
-              className="after-border-bottom"
-              onClick={() => (Active ? isActive(false) : isActive(true))}
-            >
-              <Link href="/profile">Profile</Link>
-            </li>
+            <>
+              <li>
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_API}/public/${user.image}`}
+                  alt="Avatar"
+                />
+              </li>
+              <li
+                className="after-border-bottom"
+                onClick={() => (Active ? isActive(false) : isActive(true))}
+              >
+                <Link href="/profile">Profile</Link>
+              </li>
+              <li>
+                <AiOutlineLogout
+                  className="icon icon-logout"
+                  onClick={() => {
+                    dispatch(logout(false));
+                    dispatch(setBalance(false));
+                    destroyCookie(undefined, 'token');
+                    navigate.push('/');
+                  }}
+                />
+              </li>
+            </>
           ) : (
             <>
               <li
@@ -85,26 +103,15 @@ const Header = () => {
               >
                 <Link href="/login">Login</Link>
               </li>
+              <li
+                className="after-border-bottom"
+                onClick={() => (Active ? isActive(false) : isActive(true))}
+              >
+                <Link href="/about">About</Link>
+              </li>
             </>
           )}
-          <li
-            className="after-border-bottom"
-            onClick={() => (Active ? isActive(false) : isActive(true))}
-          >
-            <Link href="/about">About</Link>
-          </li>
         </ul>
-        {UserAuth && (
-          <AiOutlineLogout
-            className="icon icon-logout"
-            onClick={() => {
-              dispatch(logout(false));
-              dispatch(setBalance(false));
-              destroyCookie(undefined, 'token');
-              navigate.push('/');
-            }}
-          />
-        )}
       </NavContainer>
     </Container>
   );
