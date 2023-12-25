@@ -4,8 +4,6 @@ import { balanceModel } from '../models/Balance';
 import { Users } from '../models/User';
 import getToken from '../helpers/get-token';
 import getUserByToken from '../helpers/get-user-by-token';
-import { userModel } from '../models/User';
-import { FLOAT } from 'sequelize';
 
 export default class balanceController {
 
@@ -165,11 +163,23 @@ export default class balanceController {
 		try {
 			const newBalanceSend = balanceSend.balance - Number.parseFloat(value);
 			const newBalanceReceive = balanceReceive.balance + Number.parseFloat(value);
-			console.log(newBalanceReceive, newBalanceSend);
+
+			const balanceUpdateSend = await balanceModel.update({
+				balance: newBalanceSend
+			},{
+				where: {userId: balanceSend.userId}
+			});
+
+			const balanceReceiveUpdate = await balanceModel.update({
+				balance: newBalanceReceive
+			}, {
+				where: {userId: balanceReceive.userId}
+			});
+
+			return res.status(200).json({message: 'Complete transfer'});
 
 		} catch (error) {
-			console.log(error);
-
+			return res.status(500).json({message: 'we are having server problems '});
 		}
 
 	}
