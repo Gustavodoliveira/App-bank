@@ -35,7 +35,10 @@ a{
 export const FormController = styled.form`
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(6, 50px);
+  position: relative;
   margin: 7rem 0 0 0;
+
 
   @media (max-width: 750px) {
     display: grid;
@@ -45,12 +48,18 @@ export const FormController = styled.form`
   }
 
   .btn-register{
-    margin-right: -15rem;
+    position: absolute;
+    top: 14rem;
+    left: 20rem;
+    margin-left: -8rem;
+
 
     @media (max-width: 750px) {
+      position: static;
       margin-right: -2rem;
     }
   }
 
 
 `
+

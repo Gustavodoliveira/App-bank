@@ -9,11 +9,25 @@ import store, { useAppDispatch } from '@/store/store';
 import { logout, setBalance } from '@/store/auth/auth';
 import { useRouter } from 'next/navigation';
 import { destroyCookie, parseCookies } from 'nookies';
-import { revalidatePath } from 'next/cache';
+import api from '@/helpers/api';
+import { AxiosError, AxiosResponse } from 'axios';
+import { toast } from 'react-toastify';
+import { IUser } from '@/interfaces/user';
 
 const Header = () => {
   const [Active, isActive] = useState(false);
   const [UserAuth, setUserAuth] = useState<boolean>(false);
+  const [user, setUser] = useState<IUser>({
+    image: '',
+    address: '',
+    age: '',
+    confirmPassword: '',
+    cpf: '',
+    email: '',
+    name: '',
+    password: '',
+    phone: '',
+  });
   const navigate = useRouter();
   const dispatch = useAppDispatch();
 
@@ -21,6 +35,22 @@ const Header = () => {
     const { token } = parseCookies();
     if (!token) return;
     setUserAuth(store.getState().isLogged);
+
+    const user = store.getState().user;
+    console.log(user);
+
+    api
+      .get(`user/getUser/${user}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res: AxiosResponse) => {
+        setUser(res.data?.user);
+      })
+      .catch((err: AxiosError) => {
+        toast.error('Something went wrong');
+      });
   }, [UserAuth]);
 
   return (
@@ -31,7 +61,7 @@ const Header = () => {
           className="menu"
           onClick={() => (Active ? isActive(false) : isActive(true))}
         />
-
+        <img src={`${api}/public/${user.image}`} alt="" />
         <ul className={Active ? 'active' : ''}>
           {UserAuth ? (
             <li

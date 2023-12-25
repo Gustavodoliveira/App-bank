@@ -18,11 +18,13 @@ import {
   FaPassport,
   FaPhone,
   FaRegUser,
+  FaFileImage,
 } from 'react-icons/fa';
 import { RiLockPasswordFill } from 'react-icons/ri';
 
 const RegisterForm = () => {
   const [user, setUser] = useState<IUser>({
+    image: '',
     name: '',
     email: '',
     cpf: '',
@@ -63,6 +65,16 @@ const RegisterForm = () => {
 
   return (
     <FormController onSubmit={handleSubmit}>
+      <Input
+        type="file"
+        name="image"
+        Icon={FaFileImage}
+        placeholder="Image"
+        handleChange={(e) => {
+          if (!e.target.files) return;
+          setUser({ ...user, image: e.target.files[0] });
+        }}
+      />
       <Input
         type="text"
         placeholder="Name"
