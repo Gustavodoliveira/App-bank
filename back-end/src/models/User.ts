@@ -31,8 +31,9 @@ export const Users = conn.define<userModel>('users', {
 		type: DataTypes.STRING,
 	},
 	cpf:{
-		type: DataTypes.STRING(20),
-		allowNull: false
+		type: DataTypes.STRING(14),
+		allowNull: false,
+		unique: true
 	},
 	age:{
 		type: DataTypes.STRING,

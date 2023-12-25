@@ -15,9 +15,9 @@ const getUserByToken = async (token: string ) => {
 	try {
 		const user = await Users.findOne({where: {id: id}}) ;
 		if(!user) return;
-		return user;
+		return user.id;
 	} catch (error) {
-		return'user not exits';
+		return 'user not exist';
 	}
 };
 

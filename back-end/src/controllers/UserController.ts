@@ -28,7 +28,7 @@ export default class UserController {
 
 		if(!user) return res.status(401).json({message: 'user not exists'});
 
-		if( user.id != id) return res.status(400).json({message: 'this is users is differents'});
+		if( user != id) return res.status(400).json({message: 'this is users is difference'});
 
 		try {
 			const user = await Users.findOne({where: { id: id }});
@@ -102,7 +102,6 @@ export default class UserController {
 
 	static async userLogin(req: Request, res:Response) {
 		const {email, password} = req.body;
-		const token = getToken(req);
 
 
 
@@ -132,7 +131,7 @@ export default class UserController {
 		if(!user) return res.status(401).json({message: 'user not exists'});
 
 
-		if( user.id != id) return res.status(400).json({message: 'this is users is differents'});
+		if( user != id) return res.status(400).json({message: 'this is users is difference'});
 
 		const { email, phone, address, password, confirmPassword} = req.body;
 
@@ -179,7 +178,7 @@ export default class UserController {
 
 
 
-		if( user.id != id) return res.status(400).json({message: 'this is users is differents'});
+		if( user != id) return res.status(400).json({message: 'this is users is difference'});
 
 		try {
 			await Users.destroy({where: {id: id}});
