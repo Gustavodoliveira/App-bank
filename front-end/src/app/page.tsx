@@ -55,7 +55,7 @@ export default function Home() {
           <Link href="/register">
             <ButtonComponent
               handleClick={() => console.log('ola')}
-              text={'hello world'}
+              text={'Create Account'}
             />
           </Link>
         </ContainerDivText>

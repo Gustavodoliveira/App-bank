@@ -14,13 +14,13 @@ import { setCookie } from 'nookies';
 import React, { useState } from 'react';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLockPasswordFill } from 'react-icons/ri';
+import { toast } from 'react-toastify';
 
 const FormLogin = () => {
   const [user, setUser] = useState<ILoginUser>({
     email: '',
     password: '',
   });
-  const [AuthUser, setAuthUser] = useState();
 
   const navigate = useRouter();
 
@@ -28,17 +28,17 @@ const FormLogin = () => {
     await api
       .post('/user/login', user)
       .then((resp: AxiosResponse) => {
-        const { token, user } = resp.data;
+        const { token, user, message } = resp.data;
         setCookie(undefined, 'token', token, {
           maxAge: 60 * 60 * 24, //24 hours
         });
-
         store.dispatch(login(true));
         store.dispatch(setUserState(user));
+        toast.success(message);
         navigate.push('/home');
       })
       .catch((err: AxiosError) => {
-        console.log(err);
+        toast.error(err.response?.data?.message);
       });
   }
 

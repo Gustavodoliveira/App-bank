@@ -7,13 +7,13 @@ import {
   ModalWrapper,
 } from './payment';
 import { AiFillCloseSquare } from 'react-icons/ai';
-import ButtonComponent from '../button/Button';
 import api from '@/helpers/api';
-import { parseCookies } from 'nookies';
+import { destroyCookie, parseCookies } from 'nookies';
 import { AxiosError, AxiosResponse } from 'axios';
-import store from '@/store/store';
+import store, { useAppDispatch } from '@/store/store';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import { logout, setBalance } from '@/store/auth/auth';
 
 interface ModalProps {
   onClose: any;
@@ -27,6 +27,8 @@ const DeleteModal = ({ onClose }: ModalProps) => {
 
   const [token, setToken] = useState<string>('');
   const [user, setUser] = useState<string>('');
+  const navigate = useRouter();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const { token } = parseCookies();
@@ -34,6 +36,25 @@ const DeleteModal = ({ onClose }: ModalProps) => {
     setUser(id);
     setToken(token);
   }, []);
+
+  async function handleClick() {
+    await api
+      .delete(`/user/deleteUser/${user}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res: AxiosResponse) => {
+        toast.success(res.data?.message);
+        dispatch(logout(false));
+        dispatch(setBalance(false));
+        destroyCookie(undefined, 'token');
+        navigate.push('/');
+      })
+      .catch((err: AxiosError) => {
+        toast.error(err.response?.data?.message);
+      });
+  }
 
   return (
     <ModalContainer>
@@ -45,7 +66,7 @@ const DeleteModal = ({ onClose }: ModalProps) => {
           </ModalHeader>
           <ContentContainer>
             <h5>Do you want to delete your account ?</h5>
-            <button>Yes</button>
+            <button onClick={handleClick}>Yes</button>
             <button onClick={() => onClose(false)}>No</button>
           </ContentContainer>
         </ModalBack>

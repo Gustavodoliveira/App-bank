@@ -135,7 +135,7 @@ const RegisterForm = () => {
         }
       />
       <div className="centralize btn-register">
-        <ButtonComponent text="register" handleClick={PostUser} />
+        <ButtonComponent text="Register" handleClick={PostUser} />
       </div>
     </FormController>
   );
