@@ -16,6 +16,7 @@ import { setBalance } from '@/store/auth/auth';
 import { toast } from 'react-toastify';
 import TransferModal from '@/components/Modals/TransferModal';
 import { FaPassport } from 'react-icons/fa';
+import Link from 'next/link';
 
 const HomeApp = () => {
   const [modal, setModal] = useState<boolean>(false);
@@ -163,10 +164,33 @@ const HomeApp = () => {
               Icon={FaPassport}
               placeholder="Cpf"
               key="Transfer modal"
-              onClose={() => setModalDeposit(false)}
+              onClose={() => setModalTransfer(false)}
               TextButton="Transfer"
             />
           )}
+        </Sections>
+        <Sections id="Edit you account">
+          <h2>Edit you account</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
+            fuga quae culpa iusto odio assumenda aperiam cumque magni provident?
+            Consequatur ipsa sunt animi corporis, iure soluta optio eum iste
+            non.
+          </p>
+          <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem, atque
+            optio maxime quae similique, repudiandae, doloribus laudantium modi
+            illum eligendi doloremque necessitatibus neque ut fuga accusantium
+            eos repellat recusandae provident?
+          </p>
+          <Link
+            href={'/profile'}
+            style={{
+              marginLeft: '10rem',
+            }}
+          >
+            <ButtonComponent text="Edit you account" />
+          </Link>
         </Sections>
       </Container>
       {/* TODO: transfer modal */}

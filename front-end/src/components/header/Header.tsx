@@ -55,7 +55,9 @@ const Header = () => {
 
   return (
     <Container>
-      <h1>App-bank</h1>
+      <Link href={UserAuth ? '/home' : '/'}>
+        <h1>App-bank</h1>
+      </Link>
       <NavContainer>
         <AiOutlineMenu
           className="menu"

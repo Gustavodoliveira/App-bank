@@ -78,7 +78,7 @@ const DepositModal = ({
         <ModalBack>
           <ModalHeader>
             <h4>{Title}</h4>
-            <AiFillCloseSquare onClick={CloseModal} />
+            <AiFillCloseSquare className="icon" onClick={CloseModal} />
           </ModalHeader>
           <ContentContainer>
             <Input

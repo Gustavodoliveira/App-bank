@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import { Btn } from './button';
 import { handleSubmit } from '@/helpers/function';
 
-export interface ButtonProps {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   handleClick?: React.MouseEventHandler<HTMLButtonElement>;
   text: string;
 }

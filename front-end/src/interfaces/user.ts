@@ -21,6 +21,14 @@ export interface IUserLogin {
   age: string,
   password: string,
 }
+export interface IUserUpdate {
+  image?: any,
+  email: string,
+  address: string,
+  phone: string,
+  password: string,
+  confirmPassword: string
+}
 
 export interface userDeposit {
   userId: string,
